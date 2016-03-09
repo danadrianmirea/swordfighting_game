@@ -11,7 +11,7 @@
   - Matthew Webster 13466955
 
 <p align="center">
-  <img src="https://github.com/BenjaminJStock/Group26/blob/master/Proposal.Logo.png" alt="Prototype Image"/>
+  <img src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
 </p>
 
 ## Intro 
@@ -39,11 +39,11 @@ In order to plan our timescales and that tasks that we needed to perform later o
 The chart below is a timeline of the tasks that we need to do in order to complete our project. We decided to group our tasks into four different categories; Planning, Programming and Design, Testing, and Reports and Findings. We decided to group the tasks as they help to show how well we are on track according to our plans.
 
 <p align="center">
-  <img src="https://github.com/BenjaminJStock/Group26/blob/master/gantt.png" alt="Gantt Chart Table"/>
+  <img src="https://github.com/Marly1995/beta-game/blob/master/images/Gantt.png" alt="Gantt Chart Table"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/BenjaminJStock/Group26/blob/master/Gantt_TimeLine2.png" alt="Gantt Chart Timeline"/>
+  <img src="https://github.com/Marly1995/beta-game/blob/master/images/GanttTimeline2.png" alt="Gantt Chart Timeline"/>
 </p>
 
 ## Risk Matrix
@@ -81,5 +81,5 @@ The chart below is a timeline of the tasks that we need to do in order to comple
 
 ## Online Video Pitch 
 
-[![IMAGE ALT TEXT HERE](https://github.com/BenjaminJStock/Group26/blob/master/YoutubeScreenShot.png)](target="_blank) "http://www.youtube.com/watch?v=f1nh2fe1AHA)
+[![IMAGE ALT TEXT HERE](https://github.com/Marly1995/beta-game/blob/master/images/YoutubeScreen.png)](target="_blank) "http://www.youtube.com/watch?v=f1nh2fe1AHA)
 
