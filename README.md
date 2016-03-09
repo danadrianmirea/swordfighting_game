@@ -2,34 +2,40 @@
 
 ### Group Project Work - Project Proposal – Swords of Turing
 
-<table style="float:left;width:300px;">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
   <tr>
-    <th>Name</th>
-    <th>Student ID</th>
+    <th class="tg-yw4l">Name</th>
+    <th class="tg-yw4l">Student ID</th>
   </tr>
   <tr>
-    <td>Marlon Gilliam</td>
-    <td>14471455</td>
+    <td class="tg-yw4l">Marlon Gilliam</td>
+    <td class="tg-yw4l">14471455</td>
   </tr>
   <tr>
-    <td>Benjamin Stock</td>
-    <td>13457465</td>
+    <td class="tg-yw4l">Benjamin Stock</td>
+    <td class="tg-yw4l">13457465</td>
   </tr>
   <tr>
-    <td>Emmanuel Uanseru</td>
-    <td>13454941</td>
+    <td class="tg-yw4l">Emmanuel Uanseru</td>
+    <td class="tg-yw4l">13454941</td>
   </tr>
   <tr>
-    <td>Stefano Rinaldi</td>
-    <td>14480397</td>
+    <td class="tg-yw4l">Stefano Rinaldi</td>
+    <td class="tg-yw4l">14480397</td>
   </tr>
   <tr>
-    <td>Benjamin Rogers</td>
-    <td>14470874</td>
+    <td class="tg-yw4l">Benjamin Rogers</td>
+    <td class="tg-yw4l">14470874</td>
   </tr>
   <tr>
-    <td>Matthew Webster</td>
-    <td>13466955</td>
+    <td class="tg-yw4l">Matthew Webster</td>
+    <td class="tg-yw4l">13466955</td>
   </tr>
 </table>
 
