@@ -34,10 +34,6 @@
   </tr>
 </table>
 
-<img style="" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
-<img style="" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
-
-
 ## Intro 
 
 For our group project assessment, we have been tasked with developing an AI system that is capable of passing the Turing test. The system would attempt to mislead a user into believing it is interacting with another human in a given scenario. As a group we are developing the two player combat game, Swords of Turing, which pits the user against an AI.
