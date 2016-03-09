@@ -11,7 +11,7 @@
   - Matthew Webster 13466955
 
 <p align="center">
-  <img src="https://github.com/BenjaminJStock/Group26/blob/master/Proposal.Logo.png" alt="Prototype Image"/>
+  <img src="https://github.com/Marly1995/beta-game/blob/master/Proposal.Logo.png" alt="Prototype Image"/>
 </p>
 
 ## Intro 
