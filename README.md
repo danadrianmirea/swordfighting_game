@@ -2,13 +2,14 @@
 
 ### Group Project Work - Project Proposal – Swords of Turing
 
-
-  - Marlon Gilliam 14471455; 
-  - Benjamin Stock 13457465; 
-  - Emmanuel Uanseru 13454941; 
-  - Stefano Rinaldi 14480397; 
-  - Benjamin Rogers 14470874; 
-  - Matthew Webster 13466955;
+| Name             	| Student ID 	|
+|------------------	|------------	|
+| Marlon Gilliam   	| 14471455   	|
+| Benjamin Stock   	| 13457465   	|
+| Emmanuel Uanseru 	| 13454941   	|
+| Stefano Rinaldi  	| 14480397   	|
+| Benjamin Rogers  	| 14470874   	|
+| Matthew Webster  	| 13466955   	|
 
 <p align="center">
   <img src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
