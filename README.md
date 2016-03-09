@@ -11,7 +11,7 @@
 | Benjamin Rogers  	| 14470874   	|
 | Matthew Webster  	| 13466955   	|
 
-<img src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
+<img style="float: right;" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
 
 
 ## Intro 
