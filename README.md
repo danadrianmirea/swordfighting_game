@@ -2,15 +2,16 @@
 
 ### Group Project Work - Project Proposal – Swords of Turing
 
+
 <table>
   <tr>
     <th>Name</th>
     <th>Student ID</th>
+    <th rowspan="7"><img style="" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/></td></th>
   </tr>
   <tr>
     <td>Marlon Gilliam</td>
     <td>14471455</td>
-    <td><img style="" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/></td>
   </tr>
   <tr>
     <td>Benjamin Stock</td>
