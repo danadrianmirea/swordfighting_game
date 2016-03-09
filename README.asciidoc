@@ -10,9 +10,7 @@
   - Benjamin Rogers 14470874; 
   - Matthew Webster 13466955
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Marly1995/beta-game/master/Proposal.Logo.png" alt="Prototype Image"/>
-</p>
+<p align="center"><img src="https://raw.githubusercontent.com/Marly1995/beta-game/master/Proposal.Logo.png" alt="Prototype Image"/></p>
 
 ## Intro 
 
