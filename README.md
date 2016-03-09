@@ -8,7 +8,7 @@
   - Emmanuel Uanseru 13454941; 
   - Stefano Rinaldi 14480397; 
   - Benjamin Rogers 14470874; 
-  - Matthew Webster 13466955
+  - Matthew Webster 13466955;
 
 <p align="center">
   <img src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
@@ -30,8 +30,6 @@ We are aiming to create a game that is enjoyable when played with either a frien
 We look to develop an AI that behaves in a mannerism that appears to be human like, and doesn’t pertain to the traditional and inhuman traits found in most common video game AIs.
 Furthering this, we will look to craft a system whereby the AI can record the player’s behaviours and devise methods by which it can counteract these actions.
 Given the situation where all these aims are met, the final product should be a game where the AI is indistinguishable from another human player. This will be due to its humanised characteristics and its unpredictable, occasionally illogical, actions. It should be developed to a stage where the AI can lose intentionally in order to gain knowledge about the player, which it would then use to win.
-
-# **ADD LIT REVIEW
 
 ## Project Plan and Timescales
 
@@ -66,8 +64,6 @@ The chart below is a timeline of the tasks that we need to do in order to comple
 3. http://www.gdcvault.com/play/1268/(307)-Characters-Welcome-Next-Steps - “Characters Welcome: Next Steps Towards Human AI”, Phil Carlisle, Richard Evans, Daniel Kline, Dave Mark, Borut Pfeifer, Robert Zubek (2009)
 4. Kouritzin, M. Newton, F. Wu, B (2013). On Random Field Completely Automated Public Turing Test to Tell Computers and Humans Apart Generation. p1.
 5. Rapaport, W (2000). How to pass a turing test. p2.
- 
-# __Add Group Meetings Table__
 
 ## Mark Allocation 
 
