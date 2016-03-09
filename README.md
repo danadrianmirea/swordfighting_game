@@ -31,7 +31,10 @@
     <td>Matthew Webster</td>
     <td>13466955</td>
   </tr>
-</table><img style="display:block;" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
+</table>
+
+<img style="float:left;" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
+<img style="float:left;" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/>
 
 
 ## Intro 
