@@ -43,6 +43,7 @@ State parryLow = State("parryLow", 5, 0, 0, 15, 0, 10, 0, 100, 100);
 bool done = false;
 
 int staminaDelay = 0;
+int staminaDrain = 0;
 int animTime = 0;
 
 void handleInput()
@@ -81,13 +82,45 @@ void handleInput()
 					//Player.hitCtrl escape to exit
 					case SDLK_ESCAPE: done = true;
 						break;
-					case SDLK_q: player1.state = stabHigh;
+						// player 1 controls
+						// TODO: add in all controls and direction keys for attack height
+					case SDLK_q: if (player1.stamina >= stabHigh._stamina &&
+						player1.state._name == "idle") {
+						player1.state = stabHigh;
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
+					}
 						break;
-					case SDLK_w: player1.state = slashHigh;
+					case SDLK_w: if (player1.stamina >= slashHigh._stamina &&
+						player1.state._name == "idle") {
+						player1.state = slashHigh;
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
+					}
+						break;
+					case SDLK_e: if (player1.stamina >= parryHigh._stamina &&
+						player1.state._name == "idle") {
+						player1.state = parryHigh;
+						player1.stateTime = 0;
+						player1.stamina -= player1.state._stamina;
+					}
+						break;
+					case SDLK_r: if (player1.stamina >= blockHigh._stamina &&
+						player1.state._name == "idle") {
+						player1.state = blockHigh;
+						player1.stateTime = 0;
+						player1.stamina -= player1.state._stamina;
+					}
+						break;
+						
+						// player 2 controls
+					case SDLK_p: player2.state = stabHigh;
+						player2.stateTime = 0;
+						player2.stamina -= player2.state._stamina;
+						break;
+					case SDLK_u: player2.state = blockHigh;
+						player2.stateTime = 0; 
+						player2.stamina -= player2.state._stamina;
 						break;
 				}
 			break;
@@ -96,7 +129,7 @@ void handleInput()
 			if (event.key.repeat)
 				switch (event.key.keysym.sym)
 				{
-				case SDLK_q: 
+				case SDLK_u: player2.state = idle;
 					break;
 				}
 			break;
@@ -113,10 +146,28 @@ void stateCompare()
 		player2.health -= player1.state._damage;
 	}
 
+	if (player1.state._name == "idle" &&
+		player2.state._name == "stabHigh" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+
 	if (player1.state._name == "slashHigh" &&
 		player2.state._name == "idle" &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "idle" &&
+		player2.state._name == "slashHigh" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "blockHigh" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= (player1.state._damage/4) * 3;
 	}
 
 	if (player1.state._name == "stabHigh" &&
@@ -129,7 +180,8 @@ void stateCompare()
 	if (player1.state._name == "stabHigh" &&
 		player2.state._name == "parryHigh" &&
 		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart) {
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
 		player1.state = idle; // would be knockback state is added
 		player2.state = idle;
 	}
@@ -139,10 +191,16 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 {
 
 	staminaDelay++;
+	staminaDrain++;
 	if (staminaDelay > 20) {
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
 		player2.stamina += player2.staminaGain;
+	}
+	if (staminaDrain > 5) {
+		staminaDrain = 0;
+		player1.stamina -= player1.state._staminaDrain;
+		player2.stamina -= player2.state._staminaDrain;
 	}
 
 	if (player1.stamina >= 50) {
@@ -160,7 +218,10 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 
 	player1.inState("stabHigh");
 	player1.inState("slashHigh");
+
+	player2.inState("stabHigh");
 	stateCompare();
+	player1.animUpdate();
 }
 
 void render()
@@ -171,15 +232,18 @@ void render()
 		SDL_Rect srcPlayer;
 		SDL_Rect dstPlayer;
 
-		srcPlayer.x = 0;
-		srcPlayer.y = 0;
-		srcPlayer.w = 97;
-		srcPlayer.h = 71;
+		srcPlayer.x = player1.xSpriteIndex;
+		srcPlayer.y = player1.ySpriteIndex;
+		srcPlayer.w = 100;
+		srcPlayer.h = 100;
 
-		dstPlayer.x = 0;
-		dstPlayer.y = 0;
-		dstPlayer.w = 32;
-		dstPlayer.h = 32;
+		dstPlayer.x = 200;
+		dstPlayer.y = 200;
+		dstPlayer.w = 100;
+		dstPlayer.h = 100;
+
+
+		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
 
 		//Update the screen
 		SDL_RenderPresent(ren);
@@ -218,7 +282,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	std::string imagePath = "assets/sprites/caverman.png";
+	std::string imagePath = "assets/sprites/stabHigh.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
