@@ -81,5 +81,9 @@ The chart below is a timeline of the tasks that we need to do in order to comple
 
 ## Online Video Pitch 
 
-[![IMAGE ALT TEXT HERE](https://github.com/Marly1995/beta-game/blob/master/images/YoutubeScreen.png)](target="_blank) "http://www.youtube.com/watch?v=f1nh2fe1AHA)
+<a href="http://www.youtube.com/watch?v=f1nh2fe1AHA" target="_blank">
+<p align="center">
+  <img src="https://github.com/Marly1995/beta-game/blob/master/images/YoutubeScreen.png" alt="Gantt Chart Table"/>
+</p>
+</a>
 
