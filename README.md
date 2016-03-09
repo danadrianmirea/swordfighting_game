@@ -2,7 +2,7 @@
 
 ### Group Project Work - Project Proposal – Swords of Turing
 
-<table style="float:left;">
+<table style="float:left;width:300px;">
   <tr>
     <th>Name</th>
     <th>Student ID</th>
