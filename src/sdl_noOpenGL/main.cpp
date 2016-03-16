@@ -26,13 +26,13 @@ Player player2 = Player();
 
 State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-State stabHigh = State("stabHigh", 5, 10, 15, 10, 10, 0, 0, 0, 0);
-State stabMid = State("stabMid", 5, 10, 15, 10, 10, 0, 0, 0, 0);
-State stabLow = State("stabLow" ,5, 10, 15, 10, 10, 0, 0, 0, 0);
+State stabHigh = State("stabHigh", 5, 10, 15, 10, 10, 0, 5, 0, 0);
+State stabMid = State("stabMid", 5, 10, 15, 10, 10, 0, 5, 0, 0);
+State stabLow = State("stabLow" ,5, 10, 15, 10, 10, 0, 5, 0, 0);
 
-State slashHigh = State("slashHigh", 10, 20, 25, 20, 20, 0, 0, 0, 0);
-State slashMid = State("slashMid", 10, 20, 25, 20, 20, 0, 0, 0, 0);
-State slashLow = State("slashLow", 10, 20, 25, 20, 20, 0, 0, 0, 0);
+State slashHigh = State("slashHigh", 10, 20, 25, 20, 20, 0, 10, 0, 0);
+State slashMid = State("slashMid", 10, 20, 25, 20, 20, 0, 10, 0, 0);
+State slashLow = State("slashLow", 10, 20, 25, 20, 20, 0, 10, 0, 0);
 
 State blockHigh = State("blockHigh", 2, 0, 0, 0, 0, 0, 1, 100, 25);
 State blockMid = State("blockMid", 2, 0, 0, 0, 0, 0, 1, 100, 25);
@@ -225,12 +225,14 @@ void stateCompare()
 	if (player1.state._name == "slashHigh" &&
 		player2.state._name == "blockHigh" &&
 		player1.stateTime == player1.state._actionEnd) {
+		player2.stamina -= player1.state._staminaDrain;
 		player2.health -= (player1.state._damage/4) * 3;
 	}
 
 	if (player1.state._name == "stabHigh" &&
 		player2.state._name == "blockHigh" &&
 		player1.stateTime == player1.state._actionEnd) {
+		player2.stamina -= player1.state._staminaDrain;
 		player1.state = idle; //TODO add playback to idle state from current animation
 		// mostly visual change, should have no real game impact
 	}
@@ -238,12 +240,14 @@ void stateCompare()
 	if (player1.state._name == "blockHigh" &&
 		player2.state._name == "slashHigh" &&
 		player2.stateTime == player2.state._actionEnd) {
+		player1.stamina -= player2.state._staminaDrain;
 		player1.health -= (player2.state._damage / 4) * 3;
 	}
 
 	if (player1.state._name == "blockHigh" &&
 		player2.state._name == "stabHigh" &&
 		player2.stateTime == player2.state._actionEnd) {
+		player1.stamina -= player2.state._staminaDrain;
 		player2.state = idle;
 	}
 	
