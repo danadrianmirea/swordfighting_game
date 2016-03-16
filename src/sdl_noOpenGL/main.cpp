@@ -266,6 +266,205 @@ void stateCompare()
 	//	player1.state = idle; // would be knockback state is added
 	//	player2.state = idle;
 	//}
+
+
+
+
+	///////MID STATES/////////////
+
+	// idle states
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "idle" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "idle" &&
+		player2.state._name == "stabMid" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "idle" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "idle" &&
+		player2.state._name == "slashMid" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+	//attacking states
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	//blocking states
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "blockMid" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= (player1.state._damage / 4) * 3;
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "blockMid" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player1.state = idle; 
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "slashMid" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= (player2.state._damage / 4) * 3;
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "stabMid" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.state = idle;
+	}
+
+	///////////////LOW STATES///////////////
+
+	// idle states
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "idle" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "idle" &&
+		player2.state._name == "stabLow" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "idle" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "idle" &&
+		player2.state._name == "slashLow" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+	//attacking states
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	//blocking states
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "blockLow" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.health -= (player1.state._damage / 4) * 3;
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "blockLow" &&
+		player1.stateTime == player1.state._actionEnd) {
+		player1.state = idle; //TODO add playback to idle state from current animation
+							  // mostly visual change, should have no real game impact
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "slashLow" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= (player2.state._damage / 4) * 3;
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "stabLow" &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.state = idle;
+	}
+	 
+
+	//TODO: Add States for
+	//High vs Low, 
+	//High vs Mid,
+	//Mid vs High, 
+	//Mid vs Low,
+	//Low vs Mid, 
+	//Low vs High
+	
+
 }
 // tag::updateSimulation[]
 void updateSimulation(double simLength = 0.02) //update simulation with an amount of time to simulate for (in seconds)
