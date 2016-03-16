@@ -122,6 +122,12 @@ void handleInput()
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
+					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
+						player2.state._name == "idle") {
+						player2.state = slashHigh;
+						player2.stateTime = 0;
+						player2.stamina -= player2.state._stamina;
+					}
 						break;
 					case SDLK_u: if (player2.stamina >= blockHigh._stamina &&
 						player2.state._name == "idle") {
@@ -138,6 +144,8 @@ void handleInput()
 				switch (event.key.keysym.sym)
 				{
 				case SDLK_u: player2.state = idle;
+					break;
+				case SDLK_r: player1.state = idle;
 					break;
 				}
 			break;
@@ -183,6 +191,35 @@ void stateCompare()
 		}
 	}
 
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
 
 	//blocking states
 	if (player1.state._name == "slashHigh" &&
@@ -260,10 +297,13 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.stamina = 0;
 	}
 
+	player1.inState("blockHigh");
 	player1.inState("stabHigh");
 	player1.inState("slashHigh");
 
+	player2.inState("blockHigh");
 	player2.inState("stabHigh");
+	player2.inState("slashHigh");
 	stateCompare();
 	player1.animUpdate();
 	player2.animUpdate();
