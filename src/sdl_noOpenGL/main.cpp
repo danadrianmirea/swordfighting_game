@@ -325,7 +325,7 @@ void render()
 		srcPlayer.w = 100;
 		srcPlayer.h = 100;
 
-		dstPlayer.x = 200;
+		dstPlayer.x = 50;
 		dstPlayer.y = 200;
 		dstPlayer.w = 100;
 		dstPlayer.h = 100;
@@ -335,13 +335,13 @@ void render()
 		srcPlayer2.w = 100;
 		srcPlayer2.h = 100;
 
-		dstPlayer2.x = 50;
+		dstPlayer2.x = 150;
 		dstPlayer2.y = 200;
 		dstPlayer2.w = 100;
 		dstPlayer2.h = 100;
 
-		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
-		SDL_RenderCopyEx(ren, playerTex, &srcPlayer2, &dstPlayer2, 0, 0, flip);
+		SDL_RenderCopy(ren, playerTex, &srcPlayer2, &dstPlayer2);
+		SDL_RenderCopyEx(ren, playerTex, &srcPlayer, &dstPlayer, 0, 0, flip);
 
 		//Update the screen
 		SDL_RenderPresent(ren);
