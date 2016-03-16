@@ -148,6 +148,7 @@ void handleInput()
 
 void stateCompare()
 {
+	// idle states
 	if (player1.state._name == "stabHigh" &&
 		player2.state._name == "idle" &&
 		player1.stateTime == player1.state._actionEnd) {
@@ -171,7 +172,19 @@ void stateCompare()
 		player2.stateTime == player2.state._actionEnd) {
 		player1.health -= player2.state._damage;
 	}
+	//attacking states
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
 
+
+	//blocking states
 	if (player1.state._name == "slashHigh" &&
 		player2.state._name == "blockHigh" &&
 		player1.stateTime == player1.state._actionEnd) {
@@ -184,15 +197,38 @@ void stateCompare()
 		player1.state = idle; //TODO add playback to idle state from current animation
 		// mostly visual change, should have no real game impact
 	}
-	
-	if (player1.state._name == "stabHigh" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "slashHigh" &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
+		player1.health -= (player2.state._damage / 4) * 3;
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "stabHigh" &&
+		player2.stateTime == player2.state._actionEnd) {
 		player2.state = idle;
 	}
+	
+	//TODO: finalise parry system
+
+	//if (player1.state._name == "stabHigh" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashHigh" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 }
 // tag::updateSimulation[]
 void updateSimulation(double simLength = 0.02) //update simulation with an amount of time to simulate for (in seconds)
