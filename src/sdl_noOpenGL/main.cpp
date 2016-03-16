@@ -19,6 +19,8 @@ SDL_Surface *surface; //pointer to the SDL_Surface
 SDL_Texture *playerTex; //pointer to the SDL_Texture
 SDL_Texture *floorTex;
 
+SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
+
 Player player1 = Player();
 Player player2 = Player();
 
@@ -114,13 +116,19 @@ void handleInput()
 						break;
 						
 						// player 2 controls
-					case SDLK_p: player2.state = stabHigh;
+					case SDLK_p: if (player2.stamina >= stabHigh._stamina &&
+						player2.state._name == "idle") {
+						player2.state = stabHigh;
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
+					}
 						break;
-					case SDLK_u: player2.state = blockHigh;
-						player2.stateTime = 0; 
+					case SDLK_u: if (player2.stamina >= blockHigh._stamina &&
+						player2.state._name == "idle") {
+						player2.state = blockHigh;
+						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
+					}
 						break;
 				}
 			break;
@@ -222,6 +230,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player2.inState("stabHigh");
 	stateCompare();
 	player1.animUpdate();
+	player2.animUpdate();
 }
 
 void render()
@@ -231,6 +240,9 @@ void render()
 		//Draw the texture
 		SDL_Rect srcPlayer;
 		SDL_Rect dstPlayer;
+
+		SDL_Rect srcPlayer2;
+		SDL_Rect dstPlayer2;
 
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
@@ -242,8 +254,18 @@ void render()
 		dstPlayer.w = 100;
 		dstPlayer.h = 100;
 
+		srcPlayer2.x = player2.xSpriteIndex;
+		srcPlayer2.y = player2.ySpriteIndex;
+		srcPlayer2.w = 100;
+		srcPlayer2.h = 100;
+
+		dstPlayer2.x = 50;
+		dstPlayer2.y = 200;
+		dstPlayer2.w = 100;
+		dstPlayer2.h = 100;
 
 		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
+		SDL_RenderCopyEx(ren, playerTex, &srcPlayer2, &dstPlayer2, 0, 0, flip);
 
 		//Update the screen
 		SDL_RenderPresent(ren);
