@@ -19,6 +19,7 @@ SDL_Surface *surface; //pointer to the SDL_Surface
 SDL_Texture *playerTex; //pointer to the SDL_Texture
 SDL_Texture *floorTex;
 SDL_Texture *staminaTex;
+SDL_Texture *healthTex;
 
 SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
@@ -476,7 +477,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 
 	staminaDelay++;
 
-	if (staminaDelay > 20) {
+	if (staminaDelay > 15) {
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
 		player2.stamina += player2.staminaGain;
@@ -535,43 +536,67 @@ void render()
 		srcPlayer.w = 100;
 		srcPlayer.h = 100;
 
-		dstPlayer.x = 50;
+		dstPlayer.x = 175;
 		dstPlayer.y = 200;
 		dstPlayer.w = 100;
 		dstPlayer.h = 100;
-
-		srcStaminaP1.x = 0;
-		srcStaminaP1.y = 0;
-		srcStaminaP1.w = 100;
-		srcStaminaP1.h = 100;
-
-		dstStaminaP1.x = 25;
-		dstStaminaP1.y = 50;
-		dstStaminaP1.w = player1.stamina;
-		dstStaminaP1.h = 25;
-
-		srcStaminaP2.x = 0;
-		srcStaminaP2.y = 0;
-		srcStaminaP2.w = 100;
-		srcStaminaP2.h = 100;
-
-		dstStaminaP2.x = 125;
-		dstStaminaP2.y = 50;
-		dstStaminaP2.w = player2.stamina;
-		dstStaminaP2.h = 25;
 
 		srcPlayer2.x = player2.xSpriteIndex;
 		srcPlayer2.y = player2.ySpriteIndex;
 		srcPlayer2.w = 100;
 		srcPlayer2.h = 100;
 
-		dstPlayer2.x = 150;
+		dstPlayer2.x = 275;
 		dstPlayer2.y = 200;
 		dstPlayer2.w = 100;
 		dstPlayer2.h = 100;
 
+		srcStaminaP1.x = 0;
+		srcStaminaP1.y = 0;
+		srcStaminaP1.w = 100;
+		srcStaminaP1.h = 100;
+
+		dstStaminaP1.x = 50;
+		dstStaminaP1.y = 100;
+		dstStaminaP1.w = player1.stamina * 2;
+		dstStaminaP1.h = 15;
+
+		srcStaminaP2.x = 0;
+		srcStaminaP2.y = 0;
+		srcStaminaP2.w = 100;
+		srcStaminaP2.h = 100;
+
+		dstStaminaP2.x = 450;
+		dstStaminaP2.y = 100;
+		dstStaminaP2.w = player2.stamina * 2;
+		dstStaminaP2.h = 15;
+
+		srcHealthP1.x = 0;
+		srcHealthP1.y = 0;
+		srcHealthP1.h = 100;
+		srcHealthP1.w = 100;
+
+		dstHealthP1.x = 50;
+		dstHealthP1.y = 75;
+		dstHealthP1.h = 15;
+		dstHealthP1.w = player1.health;
+
+		srcHealthP2.x = 0;
+		srcHealthP2.y = 0;
+		srcHealthP2.h = 100;
+		srcHealthP2.w = 100;
+
+		dstHealthP2.x = 450;
+		dstHealthP2.y = 75;
+		dstHealthP2.h = 15;
+		dstHealthP2.w = player2.health;
+
+
 		SDL_RenderCopy(ren, staminaTex, &srcStaminaP1, &dstStaminaP1);
 		SDL_RenderCopy(ren, staminaTex, &srcStaminaP2, &dstStaminaP2);
+
+		SDL_RenderCopy(ren, healthTex, &srcHealthP1, &dstHealthP1);
+		SDL_RenderCopy(ren, healthTex, &srcHealthP2, &dstHealthP2);
 
 		SDL_RenderCopy(ren, playerTex, &srcPlayer2, &dstPlayer2);
 		SDL_RenderCopyEx(ren, playerTex, &srcPlayer, &dstPlayer, 0, 0, flip);
@@ -593,7 +618,7 @@ int main(int argc, char* args[])
 	std::cout << "SDL initialised OK!\n";
 
 	//create window
-	win = SDL_CreateWindow("SDL Hello World!", 100, 100, 384, 384, SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("SDL Hello World!", 100, 100, 600, 600, SDL_WINDOW_SHOWN);
 
 	//error handling
 	if (win == nullptr)
@@ -664,6 +689,26 @@ int main(int argc, char* args[])
 	}
 
 	staminaTex = SDL_CreateTextureFromSurface(ren, surface);
+	SDL_FreeSurface(surface);
+	if (floorTex == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	imagePath = "assets/sprites/playerHealth.png";
+	surface = IMG_Load(imagePath.c_str());
+	if (surface == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL IMG_Load Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	healthTex = SDL_CreateTextureFromSurface(ren, surface);
 	SDL_FreeSurface(surface);
 	if (floorTex == nullptr) {
 		SDL_DestroyRenderer(ren);
