@@ -46,7 +46,6 @@ State parryLow = State("parryLow", 5, 0, 0, 15, 0, 10, 0, 100, 100);
 bool done = false;
 
 int staminaDelay = 0;
-int staminaDrain = 0;
 int animTime = 0;
 
 void handleInput()
@@ -476,16 +475,11 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 {
 
 	staminaDelay++;
-	staminaDrain++;
+
 	if (staminaDelay > 20) {
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
 		player2.stamina += player2.staminaGain;
-	}
-	if (staminaDrain > 5) {
-		staminaDrain = 0;
-		player1.stamina -= player1.state._staminaDrain;
-		player2.stamina -= player2.state._staminaDrain;
 	}
 
 	if (player1.stamina >= 50) {

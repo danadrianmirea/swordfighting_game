@@ -23,6 +23,7 @@ public:
 	int animFrame = 0;
 	int xSpriteIndex = 0;
 	int ySpriteIndex = 0;
+	int staminaTime = 0;
 
 	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -33,6 +34,11 @@ public:
 void Player::inState(string name)
 {
 	if (state._name == "blockHigh") {
+		staminaTime++;
+		if (staminaTime > 6) {
+			staminaTime = 0;
+			stamina -= state._staminaDrain;
+		}
 		return;
 	}
 	else if (state._name == name) {
