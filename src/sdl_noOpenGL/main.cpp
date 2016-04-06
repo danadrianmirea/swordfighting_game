@@ -24,9 +24,6 @@ SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
 Player player1 = Player();
 Player player2 = Player();
-
-State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 State stabHigh = State("stabHigh", 5, 10, 15, 10, 10, 0, 5, 0, 0);
 State stabMid = State("stabMid", 5, 10, 15, 10, 10, 0, 5, 0, 0);
 State stabLow = State("stabLow" ,5, 10, 15, 10, 10, 0, 5, 0, 0);
@@ -42,6 +39,9 @@ State blockLow = State("blockLow", 2, 0, 0, 0, 0, 0, 1, 100, 25);
 State parryHigh = State("parryHigh", 5, 0, 0, 15, 0, 10, 0, 100, 100);
 State parryMid = State("parryMid", 5, 0, 0, 15, 0, 10, 0, 100, 100);
 State parryLow = State("parryLow", 5, 0, 0, 15, 0, 10, 0, 100, 100);
+State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
 
 bool done = false;
 
@@ -469,6 +469,1292 @@ void stateCompare()
 	//Low vs High
 	
 
+
+
+
+
+	//MIXED STATES
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "BlockHigh" &&
+		player2.state._name == "BlockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+
+	if (player1.state._name == "BlockHigh" &&
+		player2.state._name == "BlockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+
+	if (player1.state._name == "BlockLow" &&
+		player2.state._name == "BlockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "BlockLow" &&
+		player2.state._name == "BlockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "BlockMid" &&
+		player2.state._name == "BlockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "BlockMid" &&
+		player2.state._name == "BlockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+
+	//Parry
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+
+
+
+	//MOVE COMBOS
+
+
+	//STAB
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "blockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "blockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabHigh" &&
+		player2.state._name == "blockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "blockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "blockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabLow" &&
+		player2.state._name == "blockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "blockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "blockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "stabMid" &&
+		player2.state._name == "blockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	//if (player1.state._name == "stabHigh" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabHigh" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabHigh" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabLow" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabLow" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+	
+	//if (player1.state._name == "stabLow" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabMid" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabMid" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "stabMid" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//SLASH MOVE COMBOS
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "blockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "blockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "blockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "blockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "blockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "blockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "blockHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "blockLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "blockMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	//if (player1.state._name == "slashHigh" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashHigh" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashHigh" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashLow" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashLow" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashLow" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashMid" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashMid" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "slashMid" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+
+	//Block Move Combos
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "stabhigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "stabLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "stabMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "stabHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockLow" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockMid" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "slashLow") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "slashMid") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	if (player1.state._name == "blockHigh" &&
+		player2.state._name == "slashHigh") {
+		if (player1.stateTime == player1.state._actionEnd) {
+			player2.health -= player1.state._damage;
+		}
+		if (player2.stateTime == player2.state._actionEnd) {
+			player1.health -= player2.state._damage;
+		}
+	}
+
+	//if (player1.state._name == "blockHigh" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockHigh" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockHigh" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockMid" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockMid" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockMid" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockLow" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockLow" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "blockLow" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+
+
+	//PARRY MOVE COMBOS
+
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "stabLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "stabMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "stabHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "stabLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "stabMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "stabHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "stabLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "stabMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "stabHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "blockLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "blockMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "blockMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "blockHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "blockMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "blockLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "blockHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "blockMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "blockLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "slashLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "slashMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "slashHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "slashLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "slashMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "slashHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "slashLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "slashHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
+
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "slashMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 }
 // tag::updateSimulation[]
 void updateSimulation(double simLength = 0.02) //update simulation with an amount of time to simulate for (in seconds)
