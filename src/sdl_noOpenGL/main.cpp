@@ -48,6 +48,8 @@ bool done = false;
 
 int staminaDelay = 0;
 int animTime = 0;
+int floorCount = 0;
+int floorTimer = 0;
 
 void handleInput()
 {
@@ -474,9 +476,17 @@ void stateCompare()
 // tag::updateSimulation[]
 void updateSimulation(double simLength = 0.02) //update simulation with an amount of time to simulate for (in seconds)
 {
-
+	floorTimer++;
 	staminaDelay++;
 
+	if (floorTimer > 3) {
+		floorCount += 375;
+		if (floorCount >= 3000)
+		{
+			floorCount = 0;
+		}
+		floorTimer = 0;
+	}
 	if (staminaDelay > 15) {
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
@@ -531,72 +541,147 @@ void render()
 		SDL_Rect srcHealthP2;
 		SDL_Rect dstHealthP2;
 
+		SDL_Rect srcStaminaBoxP1;
+		SDL_Rect dstStaminaBoxP1;
+
+		SDL_Rect srcStaminaBoxP2;
+		SDL_Rect dstStaminaBoxP2;
+
+		SDL_Rect srcHealthBoxP1;
+		SDL_Rect dstHealthBoxP1;
+
+		SDL_Rect srcHealthBoxP2;
+		SDL_Rect dstHealthBoxP2;
+
+		SDL_Rect srcFloor;
+		SDL_Rect dstFloor;
+
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
 		srcPlayer.w = 100;
 		srcPlayer.h = 100;
 
-		dstPlayer.x = 175;
-		dstPlayer.y = 200;
-		dstPlayer.w = 100;
-		dstPlayer.h = 100;
+		dstPlayer.x = 325;
+		dstPlayer.y = 150;
+		dstPlayer.w = 200;
+		dstPlayer.h = 200;
 
 		srcPlayer2.x = player2.xSpriteIndex;
 		srcPlayer2.y = player2.ySpriteIndex;
 		srcPlayer2.w = 100;
 		srcPlayer2.h = 100;
 
-		dstPlayer2.x = 275;
-		dstPlayer2.y = 200;
-		dstPlayer2.w = 100;
-		dstPlayer2.h = 100;
-
-		srcStaminaP1.x = 0;
+		dstPlayer2.x = 500;
+		dstPlayer2.y = 150;
+		dstPlayer2.w = 200;
+		dstPlayer2.h = 200;
+		///////////////////////////////////////
+		srcStaminaP1.x = 210;
 		srcStaminaP1.y = 0;
-		srcStaminaP1.w = 100;
-		srcStaminaP1.h = 100;
+		srcStaminaP1.w = 20;
+		srcStaminaP1.h = 20;
 
-		dstStaminaP1.x = 50;
+		dstStaminaP1.x = 100;
 		dstStaminaP1.y = 100;
-		dstStaminaP1.w = player1.stamina * 2;
-		dstStaminaP1.h = 15;
+		dstStaminaP1.w = player1.stamina * 4;
+		dstStaminaP1.h = 20;
 
-		srcStaminaP2.x = 0;
+		srcStaminaBoxP1.x = 0;
+		srcStaminaBoxP1.y = 0;
+		srcStaminaBoxP1.w = 200;
+		srcStaminaBoxP1.h = 20;
+
+		dstStaminaBoxP1.x = 100;
+		dstStaminaBoxP1.y = 100;
+		dstStaminaBoxP1.w = 200;
+		dstStaminaBoxP1.h = 20;
+		///////////////////////////////////////
+		srcStaminaP2.x = 210;
 		srcStaminaP2.y = 0;
-		srcStaminaP2.w = 100;
-		srcStaminaP2.h = 100;
+		srcStaminaP2.w = 20;
+		srcStaminaP2.h = 20;
 
-		dstStaminaP2.x = 450;
+		dstStaminaP2.x = 700;
 		dstStaminaP2.y = 100;
-		dstStaminaP2.w = player2.stamina * 2;
-		dstStaminaP2.h = 15;
+		dstStaminaP2.w = player2.stamina * 4;
+		dstStaminaP2.h = 20;
 
-		srcHealthP1.x = 0;
+		srcStaminaBoxP2.x = 0;
+		srcStaminaBoxP2.y = 0;
+		srcStaminaBoxP2.w = 200;
+		srcStaminaBoxP2.h = 20;
+
+		dstStaminaBoxP2.x = 700;
+		dstStaminaBoxP2.y = 100;
+		dstStaminaBoxP2.w = 200;
+		dstStaminaBoxP2.h = 20;
+		//////////////////////////////////////
+		srcHealthP1.x = 210;
 		srcHealthP1.y = 0;
-		srcHealthP1.h = 100;
-		srcHealthP1.w = 100;
+		srcHealthP1.h = 20;
+		srcHealthP1.w = 20;
 
-		dstHealthP1.x = 50;
-		dstHealthP1.y = 75;
-		dstHealthP1.h = 15;
-		dstHealthP1.w = player1.health;
+		dstHealthP1.x = 100;
+		dstHealthP1.y = 70;
+		dstHealthP1.h = 20;
+		dstHealthP1.w = player1.health * 2;
 
-		srcHealthP2.x = 0;
+		srcHealthBoxP1.x = 0;
+		srcHealthBoxP1.y = 0;
+		srcHealthBoxP1.h = 20;
+		srcHealthBoxP1.w = 200;
+
+		dstHealthBoxP1.x = 100;
+		dstHealthBoxP1.y = 70;
+		dstHealthBoxP1.h = 20;
+		dstHealthBoxP1.w = 200;
+		/////////////////////////////////////
+		srcHealthP2.x = 210;
 		srcHealthP2.y = 0;
-		srcHealthP2.h = 100;
-		srcHealthP2.w = 100;
+		srcHealthP2.h = 20;
+		srcHealthP2.w = 20;
 
-		dstHealthP2.x = 450;
-		dstHealthP2.y = 75;
-		dstHealthP2.h = 15;
-		dstHealthP2.w = player2.health;
+		dstHealthP2.x = 700;
+		dstHealthP2.y = 70;
+		dstHealthP2.h = 20;
+		dstHealthP2.w = player2.health * 2;
+
+		srcHealthBoxP2.x = 0;
+		srcHealthBoxP2.y = 0;
+		srcHealthBoxP2.h = 20;
+		srcHealthBoxP2.w = 200;
+
+		dstHealthBoxP2.x = 700;
+		dstHealthBoxP2.y = 70;
+		dstHealthBoxP2.h = 20;
+		dstHealthBoxP2.w = 200;
+		////////////////////////////////////
+		srcFloor.x = 0;
+		srcFloor.y = floorCount;
+		srcFloor.w = 1000;
+		srcFloor.h = 375;
+
+		dstFloor.x = 0;
+		dstFloor.y = 0;
+		dstFloor.w = 1000;
+		dstFloor.h = 375;
+
+		SDL_RenderCopy(ren, floorTex, &srcFloor, &dstFloor);
 
 
 		SDL_RenderCopy(ren, staminaTex, &srcStaminaP1, &dstStaminaP1);
 		SDL_RenderCopy(ren, staminaTex, &srcStaminaP2, &dstStaminaP2);
 
+		SDL_RenderCopy(ren, staminaTex, &srcStaminaBoxP1, &dstStaminaBoxP1);
+		SDL_RenderCopy(ren, staminaTex, &srcStaminaBoxP2, &dstStaminaBoxP2);
+
+
 		SDL_RenderCopy(ren, healthTex, &srcHealthP1, &dstHealthP1);
 		SDL_RenderCopy(ren, healthTex, &srcHealthP2, &dstHealthP2);
+
+		SDL_RenderCopy(ren, healthTex, &srcHealthBoxP1, &dstHealthBoxP1);
+		SDL_RenderCopy(ren, healthTex, &srcHealthBoxP2, &dstHealthBoxP2);
+
 
 		SDL_RenderCopy(ren, playerTex, &srcPlayer2, &dstPlayer2);
 		SDL_RenderCopyEx(ren, playerTex, &srcPlayer, &dstPlayer, 0, 0, flip);
@@ -618,7 +703,7 @@ int main(int argc, char* args[])
 	std::cout << "SDL initialised OK!\n";
 
 	//create window
-	win = SDL_CreateWindow("SDL Hello World!", 100, 100, 600, 600, SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("SDL Hello World!", 100, 100, 1000, 375, SDL_WINDOW_SHOWN);
 
 	//error handling
 	if (win == nullptr)
@@ -658,7 +743,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/floor.png";
+	imagePath = "assets/sprites/background.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
