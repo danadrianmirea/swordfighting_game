@@ -24,6 +24,7 @@ public:
 	int xSpriteIndex = 0;
 	int ySpriteIndex = 0;
 	int staminaTime = 0;
+	int animTimer = 0;
 
 	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -60,16 +61,25 @@ void Player::inState(string name)
 
 void Player::animUpdate()
 {
-	if (animFrame == 1) {
-		xSpriteIndex = 100;
-		ySpriteIndex = 0;
-	}
-	if (animFrame == 2) {
-		xSpriteIndex = 0;
-		ySpriteIndex = 100;
-	}
-	if (animFrame == 3) {
-		xSpriteIndex = 100;
-		ySpriteIndex = 100;
-	}
+	animTimer++;
+	//if (animTimer > 2) {
+		if (state._actionEnd == 25) {
+
+		}
+		if (state._actionEnd == 15) {
+			xSpriteIndex += 300;
+			ySpriteIndex = 0;
+			if (xSpriteIndex >= 4200) {
+				xSpriteIndex = 0;
+			}
+		}
+		if (state._actionEnd == 0) {
+			xSpriteIndex += 300;
+			ySpriteIndex = 300;
+			if (xSpriteIndex >= 4200) {
+				xSpriteIndex = 0;
+			}
+		}
+		animTimer = 0;
+	//}
 }

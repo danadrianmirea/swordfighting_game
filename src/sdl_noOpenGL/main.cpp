@@ -463,13 +463,7 @@ void stateCompare()
 	}
 	 
 
-	//TODO: Add States for
-	//High vs Low, 
-	//High vs Mid,
-	//Mid vs High, 
-	//Mid vs Low,
-	//Low vs Mid, 
-	//Low vs High
+	
 	
 
 }
@@ -558,20 +552,20 @@ void render()
 
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
-		srcPlayer.w = 100;
-		srcPlayer.h = 100;
+		srcPlayer.w = 300;
+		srcPlayer.h = 300;
 
-		dstPlayer.x = 325;
+		dstPlayer.x = 500;
 		dstPlayer.y = 150;
 		dstPlayer.w = 200;
 		dstPlayer.h = 200;
 
 		srcPlayer2.x = player2.xSpriteIndex;
 		srcPlayer2.y = player2.ySpriteIndex;
-		srcPlayer2.w = 100;
-		srcPlayer2.h = 100;
+		srcPlayer2.w = 300;
+		srcPlayer2.h = 300;
 
-		dstPlayer2.x = 500;
+		dstPlayer2.x = 325;
 		dstPlayer2.y = 150;
 		dstPlayer2.w = 200;
 		dstPlayer2.h = 200;
@@ -723,7 +717,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	std::string imagePath = "assets/sprites/stabHigh.png";
+	std::string imagePath = "assets/sprites/character.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
