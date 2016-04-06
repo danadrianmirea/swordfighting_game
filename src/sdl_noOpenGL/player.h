@@ -29,7 +29,7 @@ public:
 	void inState(string name);
 	void animUpdate();
 };//
-
+//TODO: probalby want to put the AI in here or at least this is a good place to record what actions the player has taken
 void Player::inState(string name)
 {
 	if (state._name == "blockHigh") {
