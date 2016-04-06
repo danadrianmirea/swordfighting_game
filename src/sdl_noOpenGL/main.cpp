@@ -45,6 +45,8 @@ State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 
 bool done = false;
+bool up = false;
+bool down = false;
 
 int staminaDelay = 0;
 int animTime = 0;
@@ -92,7 +94,17 @@ void handleInput()
 					case SDLK_q: if (player1.stamina >= stabHigh._stamina &&
 						player1.state._name == "idle") {
 						player1.animReset();
-						player1.state = stabHigh;
+
+						if (up == true) {
+							player1.state = stabHigh;
+						}
+						else if (down == true) {
+							player1.state = stabLow;
+						}
+						else {
+							player1.state = stabMid;
+					}
+
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
 					}
@@ -100,7 +112,14 @@ void handleInput()
 					case SDLK_w: if (player1.stamina >= slashHigh._stamina &&
 						player1.state._name == "idle") {
 						player1.animReset();
-						player1.state = slashHigh;
+
+						if (up == true)
+							player1.state = slashHigh;
+						else if (down == true)
+							player1.state = slashLow;
+						else
+							player1.state = slashMid;
+
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
 					}
@@ -146,6 +165,10 @@ void handleInput()
 						player2.stamina -= player2.state._stamina;
 					}
 						break;
+					case SDLK_UP: up = true;
+						break;
+					case SDLK_DOWN: down = true;
+						break;
 				}
 			break;
 		case SDL_KEYUP:
@@ -156,6 +179,10 @@ void handleInput()
 				case SDLK_u: player2.state = idle;
 					break;
 				case SDLK_r: player1.state = idle;
+					break;
+				case SDLK_UP: up = false;
+					break;
+				case SDLK_DOWN: down = false;
 					break;
 				}
 			break;
@@ -1798,6 +1825,8 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 
 	player1.inState("blockHigh");
 	player1.inState("stabHigh");
+	player1.inState("stabMid");
+	player1.inState("stabLow");
 	player1.inState("slashHigh");
 
 	player2.inState("blockHigh");
@@ -1991,7 +2020,7 @@ int main(int argc, char* args[])
 	std::cout << "SDL initialised OK!\n";
 
 	//create window
-	win = SDL_CreateWindow("SDL Hello World!", 100, 100, 1000, 375, SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("Swords Of Turing Alpha 0.1", 100, 100, 1000, 375, SDL_WINDOW_SHOWN);
 
 	//error handling
 	if (win == nullptr)
