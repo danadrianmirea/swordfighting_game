@@ -53,6 +53,16 @@ int animTime = 0;
 int floorCount = 0;
 int floorTimer = 0;
 
+
+
+// TODO Add Animations for Blocking
+// TODO Add Animations for Directional Attacks and Blocks
+// TODO add title screen
+// TODO add control screen/ on screen controls
+// TODO death end state
+// TODO victory animations
+
+
 void handleInput()
 {
 	//Event-based input handling
@@ -270,8 +280,7 @@ void stateCompare()
 		player2.state._name == "blockHigh" &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
-		player1.state = idle; //TODO add playback to idle state from current animation
-		// mostly visual change, should have no real game impact
+		player1.state = idle; 
 	}
 
 	if (player1.state._name == "blockHigh" &&
@@ -480,8 +489,8 @@ void stateCompare()
 	if (player1.state._name == "stabLow" &&
 		player2.state._name == "blockLow" &&
 		player1.stateTime == player1.state._actionEnd) {
-		player1.state = idle; //TODO add playback to idle state from current animation
-							  // mostly visual change, should have no real game impact
+		player1.state = idle; 
+							  
 	}
 
 	if (player1.state._name == "blockLow" &&
