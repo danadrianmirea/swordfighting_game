@@ -30,6 +30,7 @@ public:
 
 	void inState(string name);
 	void animUpdate();
+	void animReset();
 };//
 //TODO: probalby want to put the AI in here or at least this is a good place to record what actions the player has taken
 void Player::inState(string name)
@@ -62,11 +63,11 @@ void Player::inState(string name)
 void Player::animUpdate()
 {
 	animTimer++;
-	//if (animTimer > 2) {
-		if (state._actionEnd == 25) {
+	if (animTimer > 2) {
+		if (state._actionEnd == 75) {
 
 		}
-		if (state._actionEnd == 15) {
+		if (state._actionEnd == 45) {
 			xSpriteIndex += 300;
 			ySpriteIndex = 0;
 			if (xSpriteIndex >= 4200) {
@@ -81,5 +82,11 @@ void Player::animUpdate()
 			}
 		}
 		animTimer = 0;
-	//}
+	}
+}
+
+void Player::animReset()
+{
+	xSpriteIndex = 0;
+	ySpriteIndex = 0;
 }

@@ -25,13 +25,13 @@ SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
 Player player1 = Player();
 Player player2 = Player();
-State stabHigh = State("stabHigh", 5, 10, 15, 10, 10, 0, 5, 0, 0);
-State stabMid = State("stabMid", 5, 10, 15, 10, 10, 0, 5, 0, 0);
-State stabLow = State("stabLow" ,5, 10, 15, 10, 10, 0, 5, 0, 0);
+State stabHigh = State("stabHigh", 5, 10, 45, 10, 10, 0, 5, 0, 0);
+State stabMid = State("stabMid", 5, 10, 45, 10, 10, 0, 5, 0, 0);
+State stabLow = State("stabLow" ,5, 10, 45, 10, 10, 0, 5, 0, 0);
 
-State slashHigh = State("slashHigh", 10, 20, 25, 20, 20, 0, 10, 0, 0);
-State slashMid = State("slashMid", 10, 20, 25, 20, 20, 0, 10, 0, 0);
-State slashLow = State("slashLow", 10, 20, 25, 20, 20, 0, 10, 0, 0);
+State slashHigh = State("slashHigh", 10, 20, 75, 20, 20, 0, 10, 0, 0);
+State slashMid = State("slashMid", 10, 20, 75, 20, 20, 0, 10, 0, 0);
+State slashLow = State("slashLow", 10, 20, 75, 20, 20, 0, 10, 0, 0);
 
 State blockHigh = State("blockHigh", 2, 0, 0, 0, 0, 0, 1, 100, 25);
 State blockMid = State("blockMid", 2, 0, 0, 0, 0, 0, 1, 100, 25);
@@ -91,6 +91,7 @@ void handleInput()
 						// TODO: add in all controls and direction keys for attack height
 					case SDLK_q: if (player1.stamina >= stabHigh._stamina &&
 						player1.state._name == "idle") {
+						player1.animReset();
 						player1.state = stabHigh;
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
@@ -98,6 +99,7 @@ void handleInput()
 						break;
 					case SDLK_w: if (player1.stamina >= slashHigh._stamina &&
 						player1.state._name == "idle") {
+						player1.animReset();
 						player1.state = slashHigh;
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
@@ -105,6 +107,7 @@ void handleInput()
 						break;
 					case SDLK_e: if (player1.stamina >= parryHigh._stamina &&
 						player1.state._name == "idle") {
+						player1.animReset();
 						player1.state = parryHigh;
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
@@ -112,6 +115,7 @@ void handleInput()
 						break;
 					case SDLK_r: if (player1.stamina >= blockHigh._stamina &&
 						player1.state._name == "idle") {
+						player1.animReset();
 						player1.state = blockHigh;
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
@@ -121,12 +125,14 @@ void handleInput()
 						// player 2 controls
 					case SDLK_p: if (player2.stamina >= stabHigh._stamina &&
 						player2.state._name == "idle") {
+						player2.animReset();
 						player2.state = stabHigh;
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
 					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
 						player2.state._name == "idle") {
+						player2.animReset();
 						player2.state = slashHigh;
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
@@ -134,6 +140,7 @@ void handleInput()
 						break;
 					case SDLK_u: if (player2.stamina >= blockHigh._stamina &&
 						player2.state._name == "idle") {
+						player2.animReset();
 						player2.state = blockHigh;
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
@@ -1786,6 +1793,9 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.stamina = 0;
 	}
 
+	player1.animUpdate();
+	player2.animUpdate();
+
 	player1.inState("blockHigh");
 	player1.inState("stabHigh");
 	player1.inState("slashHigh");
@@ -1794,8 +1804,6 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player2.inState("stabHigh");
 	player2.inState("slashHigh");
 	stateCompare();
-	player1.animUpdate();
-	player2.animUpdate();
 }
 
 void render()
