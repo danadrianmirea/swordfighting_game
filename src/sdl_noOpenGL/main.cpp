@@ -25,17 +25,17 @@ SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
 Player player1 = Player();
 Player player2 = Player();
-State stabHigh = State("stabHigh", 5, 10, 36, 40, 10, 0, 5, 0, 0, 400, 1200);
-State stabMid = State("stabMid", 5, 10, 36, 40, 10, 0, 5, 0, 0, 400, 1500);
-State stabLow = State("stabLow" ,5, 10, 36, 40, 10, 0, 5, 0, 0, 400, 1800);
+State stabHigh = State("stabHigh", 5, 10, 36, 40, 20, 0, 5, 0, 0, 400, 1200);
+State stabMid = State("stabMid", 5, 10, 36, 40, 20, 0, 5, 0, 0, 400, 1500);
+State stabLow = State("stabLow" ,5, 10, 36, 40, 20, 0, 5, 0, 0, 400, 1800);
 
-State slashHigh = State("slashHigh", 10, 20, 75, 80, 20, 0, 10, 0, 0, 400, 2100);
-State slashMid = State("slashMid", 10, 20, 75, 80, 20, 0, 10, 0, 0, 400, 2400);
-State slashLow = State("slashLow", 10, 20, 75, 80, 20, 0, 10, 0, 0, 400, 2700);
+State slashHigh = State("slashHigh", 10, 20, 75, 80, 40, 0, 10, 0, 0, 400, 2100);
+State slashMid = State("slashMid", 10, 20, 75, 80, 40, 0, 10, 0, 0, 400, 2400);
+State slashLow = State("slashLow", 10, 20, 75, 80, 40, 0, 10, 0, 0, 400, 2700);
 
-State blockHigh = State("blockHigh", 2, 0, 2, 0, 0, 0, 4, 100, 25, 300, 300);
-State blockMid = State("blockMid", 2, 0, 2, 0, 0, 0, 4, 100, 25, 300, 600);
-State blockLow = State("blockLow", 2, 0, 2, 0, 0, 0, 4, 100, 25, 300, 900);
+State blockHigh = State("blockHigh", 2, 0, 2, 0, 0, 0, 2, 100, 25, 300, 300);
+State blockMid = State("blockMid", 2, 0, 2, 0, 0, 0, 2, 100, 25, 300, 600);
+State blockLow = State("blockLow", 2, 0, 2, 0, 0, 0, 2, 100, 25, 300, 900);
 
 State parryHigh = State("parryHigh", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
 State parryMid = State("parryMid", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
@@ -1865,16 +1865,27 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player1.animUpdate();
 	player2.animUpdate();
 
+	stateCompare();
+
 	player1.inState("blockHigh");
+	player1.inState("blockMid");
+	player1.inState("blockLow");
 	player1.inState("stabHigh");
 	player1.inState("stabMid");
 	player1.inState("stabLow");
 	player1.inState("slashHigh");
+	player1.inState("slashMid");
+	player1.inState("slashLow");
 
 	player2.inState("blockHigh");
+	player2.inState("blockMid");
+	player2.inState("blockLow");
 	player2.inState("stabHigh");
+	player2.inState("stabMid");
+	player2.inState("stabLow");
 	player2.inState("slashHigh");
-	stateCompare();
+	player2.inState("slashMid");
+	player2.inState("slashLow");
 }
 
 void render()
@@ -1920,7 +1931,7 @@ void render()
 		srcPlayer.w = 300;
 		srcPlayer.h = 300;
 
-		dstPlayer.x = 500;
+		dstPlayer.x = 325;
 		dstPlayer.y = 150;
 		dstPlayer.w = 200;
 		dstPlayer.h = 200;
@@ -1930,7 +1941,7 @@ void render()
 		srcPlayer2.w = 300;
 		srcPlayer2.h = 300;
 
-		dstPlayer2.x = 325;
+		dstPlayer2.x = 500;
 		dstPlayer2.y = 150;
 		dstPlayer2.w = 200;
 		dstPlayer2.h = 200;
@@ -2042,8 +2053,8 @@ void render()
 		SDL_RenderCopy(ren, healthTex, &srcHealthBoxP2, &dstHealthBoxP2);
 
 
-		SDL_RenderCopy(ren, playerTex, &srcPlayer2, &dstPlayer2);
-		SDL_RenderCopyEx(ren, playerTex, &srcPlayer, &dstPlayer, 0, 0, flip);
+		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
+		SDL_RenderCopyEx(ren, playerTex, &srcPlayer2, &dstPlayer2, 0, 0, flip);
 
 		//Update the screen
 		SDL_RenderPresent(ren);

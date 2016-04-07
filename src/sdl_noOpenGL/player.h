@@ -18,7 +18,7 @@ class Player
 public:
 	int health = 200;
 	int stamina = 200;
-	int staminaGain = 1;
+	int staminaGain = 4;
 	int stateTime = 0;
 	int animFrame = 0;
 	int xSpriteIndex = 0;
@@ -67,13 +67,13 @@ void Player::animUpdate()
 	animTimer++;
 	if (animTimer > 2) {
 		if (state._actionEnd == 75) {
-
+			return;
 		}
 		if (state._actionEnd == 36) {
 			xSpriteIndex += state._sprWidth;
 			ySpriteIndex = state._sprLocation + 300;
 			if (xSpriteIndex >= 4800) {
-				state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
+				xSpriteIndex = 0;
 			}
 		}
 		if (state._actionEnd == 0) {
