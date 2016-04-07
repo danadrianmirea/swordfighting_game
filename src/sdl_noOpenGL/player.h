@@ -16,8 +16,8 @@ using namespace std;
 class Player
 {
 public:
-	int health = 100;
-	int stamina = 50;
+	int health = 200;
+	int stamina = 200;
 	int staminaGain = 1;
 	int stateTime = 0;
 	int animFrame = 0;
@@ -26,7 +26,7 @@ public:
 	int staminaTime = 0;
 	int animTimer = 0;
 
-	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
 	void inState(string name);
 	void animUpdate();
@@ -35,7 +35,9 @@ public:
 //TODO: probalby want to put the AI in here or at least this is a good place to record what actions the player has taken
 void Player::inState(string name)
 {
-	if (state._name == "blockHigh") {
+	if (state._name == "blockHigh" ||
+		state._name == "blockMid" ||
+		state._name == "blockLow") {
 		staminaTime++;
 		if (staminaTime > 6) {
 			staminaTime = 0;
@@ -55,7 +57,7 @@ void Player::inState(string name)
 			animFrame = 3;
 		}
 		if (stateTime > state._actionEnd) {
-			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 		}
 	}
 }
@@ -67,18 +69,25 @@ void Player::animUpdate()
 		if (state._actionEnd == 75) {
 
 		}
-		if (state._actionEnd == 45) {
-			xSpriteIndex += 300;
-			ySpriteIndex = 0;
+		if (state._actionEnd == 36) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 4800) {
+				state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
+			}
+		}
+		if (state._actionEnd == 0) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
 			if (xSpriteIndex >= 4200) {
 				xSpriteIndex = 0;
 			}
 		}
-		if (state._actionEnd == 0) {
-			xSpriteIndex += 300;
-			ySpriteIndex = 300;
-			if (xSpriteIndex >= 4200) {
-				xSpriteIndex = 0;
+		if (state._actionEnd == 2) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 600) {
+				xSpriteIndex = 600;
 			}
 		}
 		animTimer = 0;

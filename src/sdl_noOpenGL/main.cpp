@@ -25,22 +25,22 @@ SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
 Player player1 = Player();
 Player player2 = Player();
-State stabHigh = State("stabHigh", 5, 10, 45, 10, 10, 0, 5, 0, 0);
-State stabMid = State("stabMid", 5, 10, 45, 10, 10, 0, 5, 0, 0);
-State stabLow = State("stabLow" ,5, 10, 45, 10, 10, 0, 5, 0, 0);
+State stabHigh = State("stabHigh", 5, 10, 36, 40, 10, 0, 5, 0, 0, 400, 1200);
+State stabMid = State("stabMid", 5, 10, 36, 40, 10, 0, 5, 0, 0, 400, 1500);
+State stabLow = State("stabLow" ,5, 10, 36, 40, 10, 0, 5, 0, 0, 400, 1800);
 
-State slashHigh = State("slashHigh", 10, 20, 75, 20, 20, 0, 10, 0, 0);
-State slashMid = State("slashMid", 10, 20, 75, 20, 20, 0, 10, 0, 0);
-State slashLow = State("slashLow", 10, 20, 75, 20, 20, 0, 10, 0, 0);
+State slashHigh = State("slashHigh", 10, 20, 75, 80, 20, 0, 10, 0, 0, 400, 2100);
+State slashMid = State("slashMid", 10, 20, 75, 80, 20, 0, 10, 0, 0, 400, 2400);
+State slashLow = State("slashLow", 10, 20, 75, 80, 20, 0, 10, 0, 0, 400, 2700);
 
-State blockHigh = State("blockHigh", 2, 0, 0, 0, 0, 0, 1, 100, 25);
-State blockMid = State("blockMid", 2, 0, 0, 0, 0, 0, 1, 100, 25);
-State blockLow = State("blockLow", 2, 0, 0, 0, 0, 0, 1, 100, 25);
+State blockHigh = State("blockHigh", 2, 0, 2, 0, 0, 0, 4, 100, 25, 300, 300);
+State blockMid = State("blockMid", 2, 0, 2, 0, 0, 0, 4, 100, 25, 300, 600);
+State blockLow = State("blockLow", 2, 0, 2, 0, 0, 0, 4, 100, 25, 300, 900);
 
-State parryHigh = State("parryHigh", 5, 0, 0, 15, 0, 10, 0, 100, 100);
-State parryMid = State("parryMid", 5, 0, 0, 15, 0, 10, 0, 100, 100);
-State parryLow = State("parryLow", 5, 0, 0, 15, 0, 10, 0, 100, 100);
-State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+State parryHigh = State("parryHigh", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
+State parryMid = State("parryMid", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
+State parryLow = State("parryLow", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
+State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
 
 
@@ -145,7 +145,14 @@ void handleInput()
 					case SDLK_r: if (player1.stamina >= blockHigh._stamina &&
 						player1.state._name == "idle") {
 						player1.animReset();
-						player1.state = blockHigh;
+
+						if (up == true)
+							player1.state = blockHigh;
+						else if (down == true)
+							player1.state = blockLow;
+						else
+							player1.state = blockMid;
+
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
 					}
@@ -155,14 +162,31 @@ void handleInput()
 					case SDLK_p: if (player2.stamina >= stabHigh._stamina &&
 						player2.state._name == "idle") {
 						player2.animReset();
-						player2.state = stabHigh;
+						
+						if (up == true) {
+							player2.state = stabHigh;
+						}
+						else if (down == true) {
+							player2.state = stabLow;
+						}
+						else {
+							player2.state = stabMid;
+						}
+
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
 					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
 						player2.state._name == "idle") {
 						player2.animReset();
-						player2.state = slashHigh;
+						
+						if (up == true)
+							player2.state = slashHigh;
+						else if (down == true)
+							player2.state = slashLow;
+						else
+							player2.state = slashMid;
+
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
@@ -170,7 +194,14 @@ void handleInput()
 					case SDLK_u: if (player2.stamina >= blockHigh._stamina &&
 						player2.state._name == "idle") {
 						player2.animReset();
-						player2.state = blockHigh;
+						
+						if (up == true)
+							player2.state = blockHigh;
+						else if (down == true)
+							player2.state = blockLow;
+						else
+							player2.state = blockMid;
+
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
@@ -1816,17 +1847,19 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.stamina += player2.staminaGain;
 	}
 
-	if (player1.stamina >= 50) {
-		player1.stamina = 50;
+	if (player1.stamina >= 200) {
+		player1.stamina = 200;
 	}
-	if (player2.stamina >= 50) {
-		player2.stamina = 50;
+	if (player2.stamina >= 200) {
+		player2.stamina = 200;
 	}
 	if (player1.stamina < 0) {
 		player1.stamina = 0;
+		player1.state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 	}
 	if (player2.stamina < 0) {
 		player2.stamina = 0;
+		player2.state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 	}
 
 	player1.animUpdate();
@@ -1909,7 +1942,7 @@ void render()
 
 		dstStaminaP1.x = 100;
 		dstStaminaP1.y = 100;
-		dstStaminaP1.w = player1.stamina * 4;
+		dstStaminaP1.w = player1.stamina;
 		dstStaminaP1.h = 20;
 
 		srcStaminaBoxP1.x = 0;
@@ -1929,7 +1962,7 @@ void render()
 
 		dstStaminaP2.x = 700;
 		dstStaminaP2.y = 100;
-		dstStaminaP2.w = player2.stamina * 4;
+		dstStaminaP2.w = player2.stamina;
 		dstStaminaP2.h = 20;
 
 		srcStaminaBoxP2.x = 0;
@@ -1950,7 +1983,7 @@ void render()
 		dstHealthP1.x = 100;
 		dstHealthP1.y = 70;
 		dstHealthP1.h = 20;
-		dstHealthP1.w = player1.health * 2;
+		dstHealthP1.w = player1.health;
 
 		srcHealthBoxP1.x = 0;
 		srcHealthBoxP1.y = 0;
@@ -1970,7 +2003,7 @@ void render()
 		dstHealthP2.x = 700;
 		dstHealthP2.y = 70;
 		dstHealthP2.h = 20;
-		dstHealthP2.w = player2.health * 2;
+		dstHealthP2.w = player2.health;
 
 		srcHealthBoxP2.x = 0;
 		srcHealthBoxP2.y = 0;
