@@ -1925,10 +1925,10 @@ void render()
 
 		SDL_Rect srcFloor;
 		SDL_Rect dstFloor;
-
+		// TODO fix longer animations either in sprite sheet or with code solution
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
-		srcPlayer.w = 300;
+		srcPlayer.w = 300; // player1.state._sprWidth;
 		srcPlayer.h = 300;
 
 		dstPlayer.x = 325;
@@ -1938,7 +1938,7 @@ void render()
 
 		srcPlayer2.x = player2.xSpriteIndex;
 		srcPlayer2.y = player2.ySpriteIndex;
-		srcPlayer2.w = 300;
+		srcPlayer2.w = 300; // player2.state._sprWidth;
 		srcPlayer2.h = 300;
 
 		dstPlayer2.x = 500;
