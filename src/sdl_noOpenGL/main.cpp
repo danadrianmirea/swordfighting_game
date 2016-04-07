@@ -45,8 +45,11 @@ State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
 
 bool done = false;
-bool up = false;
-bool down = false;
+
+bool p1Up = false;
+bool p1Down = false;
+bool p2Up = false;
+bool p2Down = false;
 
 int staminaDelay = 0;
 int animTime = 0;
@@ -66,13 +69,13 @@ int floorTimer = 0;
 void handleInput()
 {
 	//Event-based input handling
-	//The underlying OS is event-based, so **each** key-up or key-down (for example)
+	//The underlying OS is event-based, so **each** key-p1Up or key-p1Down (for example)
 	//generates an event.
 	//  - https://wiki.libsdl.org/SDL_PollEvent
 	//In some scenarios we want to catch **ALL** the events, not just to present state
-	//  - for instance, if taking keyboard input the user might key-down two keys during a frame
+	//  - for instance, if taking keyboard input the user might key-p1Down two keys during a frame
 	//    - we want to catch based, and know the order
-	//  - or the user might key-down and key-up the same within a frame, and we still want something to happen (e.g. jump)
+	//  - or the user might key-p1Down and key-p1Up the same within a frame, and we still want something to happen (e.g. jump)
 	//  - the alternative is to Poll the current state with SDL_GetKeyboardState
 
 	SDL_Event event; //somewhere to store an event
@@ -87,7 +90,7 @@ void handleInput()
 							//  - such as window close, or SIGINT
 			break;
 
-			//keydown handling - we should to the opposite on key-up for direction controls (generally)
+			//keydown handling - we should to the opposite on key-p1Up for direction controls (generally)
 		case SDL_KEYDOWN:
 			//Keydown can fire repeatable if key-repeat is on.
 			//  - the repeat flag is set on the keyboard event, if this is a repeat event
@@ -105,10 +108,10 @@ void handleInput()
 						player1.state._name == "idle") {
 						player1.animReset();
 
-						if (up == true) {
+						if (p1Up == true) {
 							player1.state = stabHigh;
 						}
-						else if (down == true) {
+						else if (p1Down == true) {
 							player1.state = stabLow;
 						}
 						else {
@@ -123,9 +126,9 @@ void handleInput()
 						player1.state._name == "idle") {
 						player1.animReset();
 
-						if (up == true)
+						if (p1Up == true)
 							player1.state = slashHigh;
-						else if (down == true)
+						else if (p1Down == true)
 							player1.state = slashLow;
 						else
 							player1.state = slashMid;
@@ -146,9 +149,9 @@ void handleInput()
 						player1.state._name == "idle") {
 						player1.animReset();
 
-						if (up == true)
+						if (p1Up == true)
 							player1.state = blockHigh;
-						else if (down == true)
+						else if (p1Down == true)
 							player1.state = blockLow;
 						else
 							player1.state = blockMid;
@@ -163,10 +166,10 @@ void handleInput()
 						player2.state._name == "idle") {
 						player2.animReset();
 						
-						if (up == true) {
+						if (p2Up == true) {
 							player2.state = stabHigh;
 						}
-						else if (down == true) {
+						else if (p2Down == true) {
 							player2.state = stabLow;
 						}
 						else {
@@ -180,9 +183,9 @@ void handleInput()
 						player2.state._name == "idle") {
 						player2.animReset();
 						
-						if (up == true)
+						if (p2Up == true)
 							player2.state = slashHigh;
-						else if (down == true)
+						else if (p2Down == true)
 							player2.state = slashLow;
 						else
 							player2.state = slashMid;
@@ -195,9 +198,9 @@ void handleInput()
 						player2.state._name == "idle") {
 						player2.animReset();
 						
-						if (up == true)
+						if (p2Up == true)
 							player2.state = blockHigh;
-						else if (down == true)
+						else if (p2Down == true)
 							player2.state = blockLow;
 						else
 							player2.state = blockMid;
@@ -206,9 +209,13 @@ void handleInput()
 						player2.stamina -= player2.state._stamina;
 					}
 						break;
-					case SDLK_UP: up = true;
+					case SDLK_x: p1Up = true;
 						break;
-					case SDLK_DOWN: down = true;
+					case SDLK_z: p1Down = true;
+						break;
+					case SDLK_UP: p2Up = true;
+						break;
+					case SDLK_DOWN: p2Down = true;
 						break;
 				}
 			break;
@@ -221,9 +228,13 @@ void handleInput()
 					break;
 				case SDLK_r: player1.state = idle;
 					break;
-				case SDLK_UP: up = false;
+				case SDLK_x: p1Up = false;
 					break;
-				case SDLK_DOWN: down = false;
+				case SDLK_z: p1Down = false;
+					break;
+				case SDLK_UP: p2Up = false;
+					break;
+				case SDLK_DOWN: p2Down = false;
 					break;
 				}
 			break;

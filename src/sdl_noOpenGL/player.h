@@ -18,7 +18,7 @@ class Player
 public:
 	int health = 200;
 	int stamina = 200;
-	int staminaGain = 4;
+	int staminaGain = 6;
 	int stateTime = 0;
 	int animFrame = 0;
 	int xSpriteIndex = 0;
