@@ -12,7 +12,7 @@ onto your opponent.
   <tr>
     <th>Name</th>
     <th>Student ID</th>
-    <th rowspan="7"><img style="" src="https://github.com/Marly1995/beta-game/blob/master/images/ProposalLogo.png" alt="Prototype Image"/></td></th>
+    <th rowspan="7"><img style="" width="580" src="https://github.com/Marly1995/beta-game/blob/master/images/IngameImage.png" alt="Prototype Image"/></td></th>
   </tr>
   <tr>
     <td>Marlon Gilliam</td>
