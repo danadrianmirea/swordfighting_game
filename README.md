@@ -45,25 +45,26 @@ onto your opponent.
 ####April 7th:
 	Completion of Animations
 	Bug Fixing Animation Issues
-April 6th
+####April 6th
 	Implemented Health and Stamina Bars
 	Started Implementation of Animations
 	Combined Source Files
 	Fixed Stamina Bug (Stefano sole bug fixer)
 	Implemented Background Image
-March 16th:
+####March 16th:
 	Updated Blocking Mechanic
 		Now drains additional stamina when attacked
 	Implemented all Basic States
 	Updated Graphics Dependency Libraries for Main Branch
 	Added Multiple Player Input (2 Player)
 	Simultaneous Attacks can now be Handled
-March 9th:
+####March 9th:
 	Updated ReadMe (x76)
 	Initial Animation Testing
 	Initial Branch Created
 
-NEWS	A basic changelog, intended for users
+##NEWS	
+A basic changelog, intended for users
 
 INSTALLATION
 No installation needed, just run the SwordsOfTuring.exe file.
@@ -72,11 +73,11 @@ COPYING/LICENSE
 
 Swords of Turing is Open Sourced and licensed under the GPL GNU
 
-BUGS
+###BUGS
 
 Animations dont always reset. - 01/04/16
 
-FUTURE UPDATES
+###FUTURE UPDATES
 
 Custom Music and Sound Effects
 Character Movement
