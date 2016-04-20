@@ -40,7 +40,7 @@ onto your opponent.
   </tr>
 </table>
 
-###CHANGELOG
+###Changelog
 
 ####April 7th:
 	Completion of Animations
@@ -63,13 +63,13 @@ onto your opponent.
 	Initial Animation Testing
 	Initial Branch Created
 
-##News
+###News
 A basic changelog, intended for users
 
-##Installation
+###Installation
 No installation needed, just run the SwordsOfTuring.exe file.
 
-##Copying/License
+###Copying/License
 Swords of Turing is Open Sourced and licensed under the GPL GNU
 
 ###Bugs
