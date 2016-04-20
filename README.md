@@ -63,21 +63,20 @@ onto your opponent.
 	Initial Animation Testing
 	Initial Branch Created
 
-##NEWS	
+##News
 A basic changelog, intended for users
 
-INSTALLATION
+##Installation
 No installation needed, just run the SwordsOfTuring.exe file.
 
-COPYING/LICENSE
-
+##Copying/License
 Swords of Turing is Open Sourced and licensed under the GPL GNU
 
-###BUGS
+###Bugs
 
 Animations dont always reset. - 01/04/16
 
-###FUTURE UPDATES
+###Future Updates
 
 Custom Music and Sound Effects
 Character Movement
@@ -87,7 +86,7 @@ Different Characters
 Character Customisation
 
 
-## Online Video Pitch 
+##Gameplay Video
 
 <a href="http://www.youtube.com/watch?v=f1nh2fe1AHA" target="_blank">
 <p align="center">
