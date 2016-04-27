@@ -340,7 +340,7 @@ void stateCompare()
 	}
 	
 	//TODO: finalise parry system
-
+	//TODO: ADD CONTROL FOR I KEY PRESS
 	//if (player1.state._name == "stabHigh" &&
 	//	player2.state._name == "parryHigh" &&
 	//	player1.stateTime >= player1.state._prep &&
@@ -2124,7 +2124,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/background.png";
+	imagePath = "assets/sprites/background with controls on it v4.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
