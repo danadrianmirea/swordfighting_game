@@ -53,7 +53,7 @@ onto your opponent.
 	Implemented Background Image
 #####March 16th
 	Updated Blocking Mechanic
-		Now drains additional stamina when attacked
+	Now drains additional stamina when attacked
 	Implemented all Basic States
 	Updated Graphics Dependency Libraries for Main Branch
 	Added Multiple Player Input (2 Player)
