@@ -1,0 +1,41 @@
+parry	stab
+
+high 	low
+high 	mid
+high 	high
+
+low 	high
+low 	mid
+low 	low
+
+mid 	low
+mid 	mid
+mid 	high
+
+parry 	block
+
+high 	low
+high 	mid
+high 	high
+
+low 	high
+low 	mid
+low 	low
+
+mid 	low
+mid 	mid
+mid 	high
+
+parry 	slash
+
+high 	low
+high 	mid
+high 	high
+
+low 	high
+low 	mid
+low 	low
+
+mid 	low
+mid 	mid
+mid 	high

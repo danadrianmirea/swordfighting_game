@@ -16,23 +16,33 @@ using namespace std;
 class Player
 {
 public:
-	int health = 100;
-	int stamina = 50;
-	int staminaGain = 1;
+	int health = 200;
+	int stamina = 200;
+	int staminaGain = 6;
 	int stateTime = 0;
 	int animFrame = 0;
 	int xSpriteIndex = 0;
 	int ySpriteIndex = 0;
+	int staminaTime = 0;
+	int animTimer = 0;
 
-	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
 	void inState(string name);
 	void animUpdate();
+	void animReset();
 };//
-
+//TODO: probalby want to put the AI in here or at least this is a good place to record what actions the player has taken
 void Player::inState(string name)
 {
-	if (state._name == "blockHigh") {
+	if (state._name == "blockHigh" ||
+		state._name == "blockMid" ||
+		state._name == "blockLow") {
+		staminaTime++;
+		if (staminaTime > 6) {
+			staminaTime = 0;
+			stamina -= state._staminaDrain;
+		}
 		return;
 	}
 	else if (state._name == name) {
@@ -47,23 +57,45 @@ void Player::inState(string name)
 			animFrame = 3;
 		}
 		if (stateTime > state._actionEnd) {
-			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 		}
 	}
 }
 
 void Player::animUpdate()
 {
-	if (animFrame == 1) {
-		xSpriteIndex = 100;
-		ySpriteIndex = 0;
+	animTimer++;
+	if (animTimer > 2) {
+		if (state._actionEnd == 75) {
+			return;
+		}
+		if (state._actionEnd == 36) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 4800) {
+				xSpriteIndex = 0;
+			}
+		}
+		if (state._actionEnd == 0) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 4200) {
+				xSpriteIndex = 0;
+			}
+		}
+		if (state._actionEnd == 2) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 600) {
+				xSpriteIndex = 600;
+			}
+		}
+		animTimer = 0;
 	}
-	if (animFrame == 2) {
-		xSpriteIndex = 0;
-		ySpriteIndex = 100;
-	}
-	if (animFrame == 3) {
-		xSpriteIndex = 100;
-		ySpriteIndex = 100;
-	}
+}
+
+void Player::animReset()
+{
+	xSpriteIndex = 0;
+	ySpriteIndex = 0;
 }
