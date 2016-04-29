@@ -72,16 +72,22 @@ void Player::successRateUpdate(State attack)
 	if (attack._name == "blockHigh")
 	{
 		blockHighChance += 10;
+		blockMidChance	-= 5;
+		blockLowChance	-= 5;
 	}
 
 	if (attack._name == "blockMid")
 	{
-		blockMidChance += 10;
+		blockHighChance -= 5;
+		blockMidChance	+= 10;
+		blockLowChance	-= 5;
 	}
 
 	if (attack._name == "blockLow")
 	{
-		blockLowChance += 10;
+		blockHighChance -= 5;
+		blockMidChance	-= 5;
+		blockLowChance	+= 10;
 	}
 }
 
