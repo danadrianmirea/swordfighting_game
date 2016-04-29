@@ -42,6 +42,11 @@ onto your opponent.
 
 ###Changelog
 
+#####April 29th
+	Additional AI features
+		Decay of blocking chance
+#####April 17th
+	Implemtation of  base AI
 #####April 7th
 	Completion of Animations
 	Bug Fixing Animation Issues
