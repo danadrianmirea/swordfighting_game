@@ -1887,7 +1887,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	staminaDelay++;
 
 	if (floorTimer > 3) {
-		floorCount += 375;
+		floorCount += 384;
 		if (floorCount >= 3000)
 		{
 			floorCount = 0;
@@ -2091,12 +2091,12 @@ void render()
 		srcFloor.x = 0;
 		srcFloor.y = floorCount;
 		srcFloor.w = 1000;
-		srcFloor.h = 375;
+		srcFloor.h = 384;
 
 		dstFloor.x = 0;
 		dstFloor.y = 0;
 		dstFloor.w = 1000;
-		dstFloor.h = 375;
+		dstFloor.h = 384;
 
 		SDL_RenderCopy(ren, floorTex, &srcFloor, &dstFloor);
 
@@ -2175,7 +2175,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/background.png";
+	imagePath = "assets/sprites/background black and white to colour v5.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
