@@ -8,8 +8,6 @@
 #include <algorithm>
 #include <string>
 
-#include <time.h>
-#include <dos.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
@@ -28,7 +26,7 @@ SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 //dafuq dis shit
 Player player1 = Player();
 Player player2 = Player();
-Ai ai = Ai();
+Ai dave = Ai();
 
 State stabHigh = State("stabHigh", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000);
 State stabMid = State("stabMid", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 2000, 7000);
@@ -66,14 +64,14 @@ int random = 0;
 int aiStateHold = 0;
 
 int width = 1000;
-int height = 375;
+int height = 384;
 
 
 // TODO add title screen
 // TODO add control screen/ on screen controls
 // TODO death end state
 // TODO victory animations
-//TODO: finalise parry system
+// TODO finalise parry system
 
 
 void handleInput()
@@ -1900,6 +1898,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
 		player2.stamina += player2.staminaGain;
+		dave.stamina += dave.staminaGain;
 	}
 
 	if (player1.stamina >= 200) {
@@ -1907,6 +1906,9 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	}
 	if (player2.stamina >= 200) {
 		player2.stamina = 200;
+	}
+	if (dave.stamina >= 200) {
+		dave.stamina = 200;
 	}
 	if (player1.stamina < 0) {
 		player1.stamina = 0;
@@ -1916,11 +1918,15 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.stamina = 0;
 		player2.state = idle;
 	}
+	if (dave.stamina < 0) {
+		dave.stamina = 0;
+		dave.state = idle;
+	}
 
 	if (aiStateHold != 0)
 		aiStateHold--;
 	
-	ai.aiUpdate(player1);
+	dave.aiUpdate(player1);
 
 	player2.blockLowChance -= 5 * (simLength / 3);
 
@@ -2238,7 +2244,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "P1STATE: " << player1.state._name << "       P2STATE: " << player2.state._name << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
+		cout << "P1STATE: " << player1.state._name << "       AISTAMINA: " << dave.stamina << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
