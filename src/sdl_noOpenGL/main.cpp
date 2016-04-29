@@ -24,7 +24,7 @@ SDL_Texture *staminaTex;
 SDL_Texture *healthTex;
 
 SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
-
+//dafuq dis shit
 Player player1 = Player();
 Player player2 = Player();
 State stabHigh = State("stabHigh", 5, 10, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000);
