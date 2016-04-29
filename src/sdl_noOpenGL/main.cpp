@@ -71,7 +71,7 @@ int height = 384;
 // TODO add control screen/ on screen controls
 // TODO death end state
 // TODO victory animations
-// TODO finalise parry system
+//TODO: finalise parry system
 
 
 void handleInput()
