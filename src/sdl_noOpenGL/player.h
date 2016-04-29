@@ -26,8 +26,9 @@ public:
 	int staminaTime = 0;
 	int animTimer = 0;
 
-	int blockHighChance = 50;
-	int blockMidChance = 50;
+	float blockHighChance = 50;
+	float blockMidChance = 50;
+	float blockLowChance = 50;
 
 	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 7000);
 
@@ -71,11 +72,22 @@ void Player::successRateUpdate(State attack)
 	if (attack._name == "blockHigh")
 	{
 		blockHighChance += 10;
+		blockMidChance	-= 5;
+		blockLowChance	-= 5;
 	}
 
 	if (attack._name == "blockMid")
 	{
-		blockMidChance += 10;
+		blockHighChance -= 5;
+		blockMidChance	+= 10;
+		blockLowChance	-= 5;
+	}
+
+	if (attack._name == "blockLow")
+	{
+		blockHighChance -= 5;
+		blockMidChance	-= 5;
+		blockLowChance	+= 10;
 	}
 }
 

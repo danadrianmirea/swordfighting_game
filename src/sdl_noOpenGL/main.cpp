@@ -27,25 +27,25 @@ SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
 Player player1 = Player();
 Player player2 = Player();
-State stabHigh = State("stabHigh", 5, 10, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000);
-State stabMid = State("stabMid", 5, 10, 36, 40, 20, 0, 5, 0, 0, 0, 2000, 7000);
-State stabLow = State("stabLow" ,5, 10, 36, 40, 20, 0, 5, 0, 0, 0, 2400, 7000);
+State stabHigh = State("stabHigh", 5, 10, 36, 40, 20, 0, 5, 0, 0, 400, 1200);
+State stabMid = State("stabMid", 5, 10, 36, 40, 20, 0, 5, 0, 0, 400, 1500);
+State stabLow = State("stabLow" ,5, 10, 36, 40, 20, 0, 5, 0, 0, 400, 1800);
 
-State slashHigh = State("slashHigh", 10, 20, 75, 80, 40, 0, 10, 0, 0, 0, 400, 10000);
-State slashMid = State("slashMid", 10, 20, 75, 80, 40, 0, 10, 0, 0, 0, 800, 10000);
-State slashLow = State("slashLow", 10, 20, 75, 80, 40, 0, 10, 0, 0, 0, 1200, 10000);
+State slashHigh = State("slashHigh", 10, 20, 75, 80, 40, 0, 10, 0, 0, 400, 2100);
+State slashMid = State("slashMid", 10, 20, 75, 80, 40, 0, 10, 0, 0, 400, 2400);
+State slashLow = State("slashLow", 10, 20, 75, 80, 40, 0, 10, 0, 0, 400, 2700);
 
-State blockHigh = State("blockHigh", 2, 0, 2, 0, 0, 0, 2, 100, 25, 1000, 2800, 1000);
-State blockMid = State("blockMid", 2, 0, 2, 0, 0, 0, 2, 100, 25, 1000, 3200, 1000);
-State blockLow = State("blockLow", 2, 0, 2, 0, 0, 0, 2, 100, 25, 1000, 3600, 1000);
+State blockHigh = State("blockHigh", 2, 0, 2, 0, 0, 0, 2, 100, 25, 300, 300);
+State blockMid = State("blockMid", 2, 0, 2, 0, 0, 0, 2, 100, 25, 300, 600);
+State blockLow = State("blockLow", 2, 0, 2, 0, 0, 0, 2, 100, 25, 300, 900);
 
-State parryHigh = State("parryHigh", 5, 0, 0, 45, 0, 10, 0, 100, 100, 0, 4000, 5000);
-State parryMid = State("parryMid", 5, 0, 0, 45, 0, 10, 0, 100, 100, 0, 4400, 5000);
-State parryLow = State("parryLow", 5, 0, 0, 45, 0, 10, 0, 100, 100, 0, 4800, 5000);
-State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7000);
+State parryHigh = State("parryHigh", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
+State parryMid = State("parryMid", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
+State parryLow = State("parryLow", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
+State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
-void aiResponse(State success, int successRate);
-void aiAttack(State success, int successRate);
+void aiResponse(State success, float successRate);
+void aiAttack(State success, float successRate);
 
 bool done = false;
 
@@ -122,6 +122,7 @@ void handleInput()
 						}
 						else if (p1Down == true) {
 							player1.state = stabLow;
+							aiResponse(blockLow, player2.blockLowChance);
 						}
 						else {
 							player1.state = stabMid;
@@ -253,14 +254,14 @@ void handleInput()
 }
 // end::handleInput[]
 
-void aiResponse(State successState, int successRate) {
+void aiResponse(State successState, float successRate) {
 	random = rand() % 100 + 1;
 
 	if (random <= successRate)
 	{
 		player2.state = successState;
 		player2.successRateUpdate(successState);
-		aiStateHold = 30;
+		aiStateHold = 40;
 	}
 	else
 	{
@@ -269,7 +270,7 @@ void aiResponse(State successState, int successRate) {
 	}
 }
 
-void aiAttack(State successState, int successRate) {
+void aiAttack(State successState, float successRate) {
 	int random = rand() % 100 + 1;
 
 	if (random <= successRate)
@@ -1006,7 +1007,7 @@ void stateCompare()
 	if (player1.state._name == "stabMid" &&
 		player2.state._name == "blockMid") {
 		if (player1.stateTime == player1.state._actionEnd) {
-			player2.health -= player1.state._damage;
+			//player2.health -= player1.state._damage;
 		}
 		if (player2.stateTime == player2.state._actionEnd) {
 			player1.health -= player2.state._damage;
@@ -1907,11 +1908,11 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	}
 	if (player1.stamina < 0) {
 		player1.stamina = 0;
-		player1.state = idle;
+		player1.state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 	}
 	if (player2.stamina < 0) {
 		player2.stamina = 0;
-		player2.state = idle;
+		player2.state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 	}
 
 	if (aiStateHold != 0)
@@ -1919,7 +1920,11 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	else
 		player2.state = idle;
 
-	
+
+	player2.blockLowChance -= 5 * (simLength / 3);
+
+	player1.animUpdate();
+	player2.animUpdate();
 
 	stateCompare();
 
@@ -1942,9 +1947,6 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player2.inState("slashHigh");
 	player2.inState("slashMid");
 	player2.inState("slashLow");
-
-	player1.animUpdate();
-	player2.animUpdate();
 }
 
 void render()
@@ -1988,22 +1990,22 @@ void render()
 		// TODO fix longer animations either in sprite sheet or with code solution
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
-		srcPlayer.w = 500; // player1.state._sprWidth;
-		srcPlayer.h = 400;
+		srcPlayer.w = 300; // player1.state._sprWidth;
+		srcPlayer.h = 300;
 
 		dstPlayer.x = 325;
 		dstPlayer.y = 150;
-		dstPlayer.w = 250;
+		dstPlayer.w = 200;
 		dstPlayer.h = 200;
 
 		srcPlayer2.x = player2.xSpriteIndex;
 		srcPlayer2.y = player2.ySpriteIndex;
-		srcPlayer2.w = 500; // player2.state._sprWidth;
-		srcPlayer2.h = 400;
+		srcPlayer2.w = 300; // player2.state._sprWidth;
+		srcPlayer2.h = 300;
 
 		dstPlayer2.x = 500;
 		dstPlayer2.y = 150;
-		dstPlayer2.w = 250;
+		dstPlayer2.w = 200;
 		dstPlayer2.h = 200;
 		///////////////////////////////////////
 		srcStaminaP1.x = 210;
@@ -2235,7 +2237,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "RANDOM: " << random << "            BLOCKHIGH: " << player2.blockHighChance << "      BLOCKMID: " << player2.blockMidChance << "               " << player1.stamina << "         " << player2.stamina << "                   " << player1.health << "         " << player2.health << endl;
+		cout << "P1STATE: " << player1.state._name << "       P2STATE: " << player2.state._name << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
