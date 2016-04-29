@@ -26,9 +26,13 @@ public:
 	int staminaTime = 0;
 	int animTimer = 0;
 
+	int blockHighChance = 50;
+	int blockMidChance = 50;
+
 	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
 	void inState(string name);
+	void successRateUpdate(State name);
 	void animUpdate();
 	void animReset();
 };//
@@ -59,6 +63,19 @@ void Player::inState(string name)
 		if (stateTime > state._actionEnd) {
 			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 		}
+	}
+}
+
+void Player::successRateUpdate(State attack)
+{
+	if (attack._name == "blockHigh")
+	{
+		blockHighChance += 10;
+	}
+
+	if (attack._name == "blockMid")
+	{
+		blockMidChance += 10;
 	}
 }
 
