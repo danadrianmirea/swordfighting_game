@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <string>
 
+#include <time.h>
+#include <dos.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
@@ -42,7 +44,8 @@ State parryMid = State("parryMid", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
 State parryLow = State("parryLow", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
 State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
-
+void aiResponse(State success, int successRate);
+void aiAttack(State success, int successRate);
 
 bool done = false;
 
@@ -56,6 +59,11 @@ int animTime = 0;
 int floorCount = 0;
 int floorTimer = 0;
 
+int random = 0;
+int aiStateHold = 0;
+
+int width = 1000;
+int height = 375;
 
 
 // TODO Add Animations for Blocking
@@ -110,12 +118,14 @@ void handleInput()
 
 						if (p1Up == true) {
 							player1.state = stabHigh;
+							aiResponse(blockHigh, player2.blockHighChance);
 						}
 						else if (p1Down == true) {
 							player1.state = stabLow;
 						}
 						else {
 							player1.state = stabMid;
+							aiResponse(blockMid, player2.blockMidChance);
 					}
 
 						player1.stateTime = 0;
@@ -243,6 +253,37 @@ void handleInput()
 }
 // end::handleInput[]
 
+void aiResponse(State successState, int successRate) {
+	random = rand() % 100 + 1;
+
+	if (random <= successRate)
+	{
+		player2.state = successState;
+		player2.successRateUpdate(successState);
+		aiStateHold = 30;
+	}
+	else
+	{
+		player2.state = idle;
+		player2.successRateUpdate(successState);
+	}
+}
+
+void aiAttack(State successState, int successRate) {
+	int random = rand() % 100 + 1;
+
+	if (random <= successRate)
+	{
+		player2.state = successState;
+		player2.successRateUpdate(successState);
+	}
+	else
+	{
+		player2.state = idle;
+		player2.successRateUpdate(successState);
+	}
+}
+
 void stateCompare()
 {
 	// idle states
@@ -340,7 +381,7 @@ void stateCompare()
 	}
 	
 	//TODO: finalise parry system
-	//TODO: ADD CONTROL FOR I KEY PRESS
+
 	//if (player1.state._name == "stabHigh" &&
 	//	player2.state._name == "parryHigh" &&
 	//	player1.stateTime >= player1.state._prep &&
@@ -1854,8 +1895,8 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	}
 	if (staminaDelay > 15) {
 		staminaDelay = 0;
-		player1.stamina += player1.staminaGain;
-		player2.stamina += player2.staminaGain;
+		player1.stamina += player1.staminaGain + 50;
+		player2.stamina += player2.staminaGain + 50;
 	}
 
 	if (player1.stamina >= 200) {
@@ -1872,6 +1913,11 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.stamina = 0;
 		player2.state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 	}
+
+	if (aiStateHold != 0)
+		aiStateHold--;
+	else
+		player2.state = idle;
 
 	player1.animUpdate();
 	player2.animUpdate();
@@ -1903,6 +1949,7 @@ void render()
 {
 		//First clear the renderer
 		SDL_RenderClear(ren);
+		SDL_RenderSetLogicalSize(ren, width, height);
 		//Draw the texture
 		SDL_Rect srcPlayer;
 		SDL_Rect dstPlayer;
@@ -2084,7 +2131,7 @@ int main(int argc, char* args[])
 	std::cout << "SDL initialised OK!\n";
 
 	//create window
-	win = SDL_CreateWindow("Swords Of Turing Alpha 0.1", 100, 100, 1000, 375, SDL_WINDOW_SHOWN);
+	win = SDL_CreateWindow("Swords Of Turing Alpha 0.1", 100, 100, width, height, SDL_WINDOW_RESIZABLE);
 
 	//error handling
 	if (win == nullptr)
@@ -2124,7 +2171,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/background with controls on it v4.png";
+	imagePath = "assets/sprites/background.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
@@ -2186,7 +2233,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << player1.stamina << "         " << player2.stamina << "                   " << player1.health << "         " << player2.health << endl;
+		cout << "RANDOM: " << random << "            BLOCKHIGH: " << player2.blockHighChance << "      BLOCKMID: " << player2.blockMidChance << "               " << player1.stamina << "         " << player2.stamina << "                   " << player1.health << "         " << player2.health << endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
