@@ -2175,7 +2175,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/background black and white to colour v5.png";
+	imagePath = "assets/sprites/background.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
