@@ -66,12 +66,11 @@ int width = 1000;
 int height = 375;
 
 
-// TODO Add Animations for Blocking
-// TODO Add Animations for Directional Attacks and Blocks
 // TODO add title screen
 // TODO add control screen/ on screen controls
 // TODO death end state
 // TODO victory animations
+//TODO: finalise parry system
 
 
 void handleInput()
@@ -111,7 +110,7 @@ void handleInput()
 					case SDLK_ESCAPE: done = true;
 						break;
 						// player 1 controls
-						// TODO: add in all controls and direction keys for attack height
+						
 					case SDLK_q: if (player1.stamina >= stabHigh._stamina &&
 						player1.state._name == "idle") {
 						player1.animReset();
@@ -381,7 +380,7 @@ void stateCompare()
 		player2.state = idle;
 	}
 	
-	//TODO: finalise parry system
+	
 
 	//if (player1.state._name == "stabHigh" &&
 	//	player2.state._name == "parryHigh" &&
@@ -1987,7 +1986,7 @@ void render()
 
 		SDL_Rect srcFloor;
 		SDL_Rect dstFloor;
-		// TODO fix longer animations either in sprite sheet or with code solution
+		
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
 		srcPlayer.w = 500; // player1.state._sprWidth;
