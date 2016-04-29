@@ -44,8 +44,8 @@ State parryMid = State("parryMid", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
 State parryLow = State("parryLow", 5, 0, 0, 45, 0, 10, 0, 100, 100, 300, 0);
 State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
-void aiResponse(State success, int successRate);
-void aiAttack(State success, int successRate);
+void aiResponse(State success, float successRate);
+void aiAttack(State success, float successRate);
 
 bool done = false;
 
@@ -122,6 +122,7 @@ void handleInput()
 						}
 						else if (p1Down == true) {
 							player1.state = stabLow;
+							aiResponse(blockLow, player2.blockLowChance);
 						}
 						else {
 							player1.state = stabMid;
@@ -253,14 +254,14 @@ void handleInput()
 }
 // end::handleInput[]
 
-void aiResponse(State successState, int successRate) {
+void aiResponse(State successState, float successRate) {
 	random = rand() % 100 + 1;
 
 	if (random <= successRate)
 	{
 		player2.state = successState;
 		player2.successRateUpdate(successState);
-		aiStateHold = 30;
+		aiStateHold = 40;
 	}
 	else
 	{
@@ -269,7 +270,7 @@ void aiResponse(State successState, int successRate) {
 	}
 }
 
-void aiAttack(State successState, int successRate) {
+void aiAttack(State successState, float successRate) {
 	int random = rand() % 100 + 1;
 
 	if (random <= successRate)
@@ -1006,7 +1007,7 @@ void stateCompare()
 	if (player1.state._name == "stabMid" &&
 		player2.state._name == "blockMid") {
 		if (player1.stateTime == player1.state._actionEnd) {
-			player2.health -= player1.state._damage;
+			//player2.health -= player1.state._damage;
 		}
 		if (player2.stateTime == player2.state._actionEnd) {
 			player1.health -= player2.state._damage;
@@ -1895,8 +1896,8 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	}
 	if (staminaDelay > 15) {
 		staminaDelay = 0;
-		player1.stamina += player1.staminaGain + 50;
-		player2.stamina += player2.staminaGain + 50;
+		player1.stamina += player1.staminaGain;
+		player2.stamina += player2.staminaGain;
 	}
 
 	if (player1.stamina >= 200) {
@@ -1918,6 +1919,9 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		aiStateHold--;
 	else
 		player2.state = idle;
+
+
+	player2.blockLowChance -= 5 * (simLength / 3);
 
 	player1.animUpdate();
 	player2.animUpdate();
@@ -2233,7 +2237,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "RANDOM: " << random << "            BLOCKHIGH: " << player2.blockHighChance << "      BLOCKMID: " << player2.blockMidChance << "               " << player1.stamina << "         " << player2.stamina << "                   " << player1.health << "         " << player2.health << endl;
+		cout << "P1STATE: " << player1.state._name << "       P2STATE: " << player2.state._name << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
