@@ -26,16 +26,13 @@ public:
 	int _negateSlash;
 	int _sprWidth;
 	int _sprLocation;
-	int _sprLength;
 
 	State(string name, int prep, int actionStart, int actionEnd, int stamina, int damage,
-		int knockback, int staminaDrain, int negateStab, int negateSlash, 
-		int spriteWidth, int spriteLocation, int sprLength);
+		int knockback, int staminaDrain, int negateStab, int negateSlash, int spriteWidth, int spriteLocation);
 };
 
 State::State(string name, int prep, int actionStart, int actionEnd, int stamina, int damage,
-	int knockback, int staminaDrain, int negateStab, int negateSlash, 
-	int spriteWidth, int spriteLocation, int sprLength)
+	int knockback, int staminaDrain, int negateStab, int negateSlash, int spriteWidth, int spriteLocation)
 {
 	_name = name;
 	_prep = prep;
@@ -49,5 +46,4 @@ State::State(string name, int prep, int actionStart, int actionEnd, int stamina,
 	_negateSlash = negateSlash;
 	_sprWidth = spriteWidth;
 	_sprLocation = spriteLocation;
-	_sprLength = sprLength;
 }

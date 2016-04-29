@@ -30,7 +30,7 @@ public:
 	float blockMidChance = 50;
 	float blockLowChance = 50;
 
-	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 7000);
+	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 
 	void inState(string name);
 	void successRateUpdate(State name);
@@ -62,7 +62,7 @@ void Player::inState(string name)
 			animFrame = 3;
 		}
 		if (stateTime > state._actionEnd) {
-			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 7000);
+			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0);
 		}
 	}
 }
@@ -95,10 +95,30 @@ void Player::animUpdate()
 {
 	animTimer++;
 	if (animTimer > 2) {
-		xSpriteIndex += 500;
-		ySpriteIndex = state._sprLocation;
-		if (xSpriteIndex >= state._sprLength)
-			xSpriteIndex = state._sprWidth;
+		if (state._actionEnd == 75) {
+			return;
+		}
+		if (state._actionEnd == 36) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 4800) {
+				xSpriteIndex = 0;
+			}
+		}
+		if (state._actionEnd == 0) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 4200) {
+				xSpriteIndex = 0;
+			}
+		}
+		if (state._actionEnd == 2) {
+			xSpriteIndex += state._sprWidth;
+			ySpriteIndex = state._sprLocation + 300;
+			if (xSpriteIndex >= 600) {
+				xSpriteIndex = 600;
+			}
+		}
 		animTimer = 0;
 	}
 }
