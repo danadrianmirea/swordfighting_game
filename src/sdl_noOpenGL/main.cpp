@@ -21,36 +21,17 @@ SDL_Texture *playerTex; //pointer to the SDL_Texture
 SDL_Texture *floorTex;
 SDL_Texture *staminaTex;
 SDL_Texture *healthTex;
-SDL_Texture *menuTex;
 
 SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 //dafuq dis shit
 Player player1 = Player();
-Player player2 = Player();
-Ai dave = Ai();
-
-State stabHigh = State("stabHigh", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000);
-State stabMid = State("stabMid", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 2000, 7000);
-State stabLow = State("stabLow", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 2400, 7000);
-
-State slashHigh = State("slashHigh", 10, 30, 50, 80, 40, 0, 10, 0, 0, 0, 400, 10000);
-State slashMid = State("slashMid", 10, 30, 50, 80, 40, 0, 10, 0, 0, 0, 800, 10000);
-State slashLow = State("slashLow", 10, 30, 50, 80, 40, 0, 10, 0, 0, 0, 1200, 10000);
-
-State blockHigh = State("blockHigh", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 2800, 1000);
-State blockMid = State("blockMid", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3200, 1000);
-State blockLow = State("blockLow", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3600, 1000);
-
-State parryHigh = State("parryHigh", 5, 10, 15, 45, 0, 10, 0, 100, 100, 0, 4000, 5000);
-State parryMid = State("parryMid", 5, 10, 15, 45, 0, 10, 0, 100, 100, 0, 4400, 5000);
-State parryLow = State("parryLow", 5, 10, 15, 45, 0, 10, 0, 100, 100, 0, 4800, 5000);
-State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7000);
+//Player player2 = Player();
+Ai player2 = Ai();
 
 void aiResponse(State success, float successRate);
 void aiAttack(State success, float successRate);
 
 bool done = false;
-bool menu = true;
 
 bool p1Up = false;
 bool p1Down = false;
@@ -120,15 +101,12 @@ void handleInput()
 
 						if (p1Up == true) {
 							player1.state = stabHigh;
-							aiResponse(blockHigh, player2.blockHighChance);
 						}
 						else if (p1Down == true) {
 							player1.state = stabLow;
-							aiResponse(blockLow, player2.blockLowChance);
 						}
 						else {
 							player1.state = stabMid;
-							aiResponse(blockMid, player2.blockMidChance);
 					}
 
 						player1.stateTime = 0;
@@ -192,9 +170,6 @@ void handleInput()
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
-								 if (menu == true) {
-									 menu = false;
-								 }
 					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
 						player2.state._name == "idle") {
 						player2.animReset();
@@ -258,37 +233,6 @@ void handleInput()
 	}
 }
 // end::handleInput[]
-
-void aiResponse(State successState, float successRate) {
-	random = rand() % 100 + 1;
-
-	if (random <= successRate)
-	{
-		player2.state = successState;
-		player2.successRateUpdate(successState);
-		aiStateHold = 40;
-	}
-	else
-	{
-		player2.state = idle;
-		player2.successRateUpdate(successState);
-	}
-}
-
-void aiAttack(State successState, float successRate) {
-	int random = rand() % 100 + 1;
-
-	if (random <= successRate)
-	{
-		player2.state = successState;
-		player2.successRateUpdate(successState);
-	}
-	else
-	{
-		player2.state = idle;
-		player2.successRateUpdate(successState);
-	}
-}
 
 void stateCompare()
 {
@@ -1012,7 +956,7 @@ void stateCompare()
 	if (player1.state._name == "stabMid" &&
 		player2.state._name == "blockMid") {
 		if (player1.stateTime == player1.state._actionEnd) {
-			//player2.health -= player1.state._damage;
+			player2.health -= player1.state._damage;
 		}
 		if (player2.stateTime == player2.state._actionEnd) {
 			player1.health -= player2.state._damage;
@@ -1903,35 +1847,28 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
 		player2.stamina += player2.staminaGain;
-		dave.stamina += dave.staminaGain;
+		player2.stamina += player2.staminaGain;
 	}
 
 	if (player1.stamina >= 200) {
 		player1.stamina = 200;
 	}
+
 	if (player2.stamina >= 200) {
 		player2.stamina = 200;
 	}
-	if (dave.stamina >= 200) {
-		dave.stamina = 200;
-	}
+
 	if (player1.stamina < 0) {
 		player1.stamina = 0;
 		player1.state = idle;
 	}
+
 	if (player2.stamina < 0) {
 		player2.stamina = 0;
 		player2.state = idle;
 	}
-	if (dave.stamina < 0) {
-		dave.stamina = 0;
-		dave.state = idle;
-	}
-
-	if (aiStateHold != 0)
-		aiStateHold--;
 	
-	dave.aiUpdate(player1);
+	player2.aiUpdate(player1);
 
 	player2.blockLowChance -= 5 * (simLength / 3);
 
@@ -1999,9 +1936,6 @@ void render()
 
 		SDL_Rect srcFloor;
 		SDL_Rect dstFloor;
-
-		SDL_Rect srcMenu;
-		SDL_Rect dstMenu;
 		
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
@@ -2112,16 +2046,6 @@ void render()
 		dstFloor.y = 0;
 		dstFloor.w = 1000;
 		dstFloor.h = 384;
-		///////////////////////////////////
-		srcMenu.x = 0;
-		srcMenu.y = 0;
-		srcMenu.w = 1000;
-		srcMenu.h = 384;
-
-		dstMenu.x = 0;
-		dstMenu.y = 0;
-		dstMenu.w = 1000;
-		dstMenu.h = 384;
 
 		SDL_RenderCopy(ren, floorTex, &srcFloor, &dstFloor);
 
@@ -2142,9 +2066,7 @@ void render()
 
 		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
 		SDL_RenderCopyEx(ren, playerTex, &srcPlayer2, &dstPlayer2, 0, 0, flip);
-		if (menu == true) {
-			SDL_RenderCopy(ren, menuTex, &srcMenu, &dstMenu);
-		}
+
 		//Update the screen
 		SDL_RenderPresent(ren);
 }
@@ -2222,26 +2144,6 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/menu.png";
-	surface = IMG_Load(imagePath.c_str());
-	if (surface == nullptr) {
-		SDL_DestroyRenderer(ren);
-		SDL_DestroyWindow(win);
-		std::cout << "SDL IMG_Load Error: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
-	}
-
-	menuTex = SDL_CreateTextureFromSurface(ren, surface);
-	SDL_FreeSurface(surface);
-	if (floorTex == nullptr) {
-		SDL_DestroyRenderer(ren);
-		SDL_DestroyWindow(win);
-		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
-	}
-
 	imagePath = "assets/sprites/playerStamina.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
@@ -2284,7 +2186,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "P1STATE: " << player1.state._name << "       AISTAMINA: " << dave.stamina << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
+		cout << "player2: " << player2.state._name << "       BlockMidChance: " << player2.blockMidChance << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
