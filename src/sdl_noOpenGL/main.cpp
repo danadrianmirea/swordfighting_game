@@ -170,6 +170,11 @@ void handleInput()
 								 if (menu == true) {
 									 menu = false;
 								 }
+					case SDLK_SPACE: 
+						if (menu == true) {
+							menu = false;
+						}
+						break;
 					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
 						player2.state._name == "idle") {
 						player2.animReset();
@@ -537,14 +542,6 @@ void stateCompare()
 		player2.stateTime == player2.state._actionEnd) {
 		player2.state = idle;
 	}
-	 
-
-	
-	
-
-
-
-
 
 	//MIXED STATES
 
