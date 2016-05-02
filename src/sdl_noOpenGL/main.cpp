@@ -69,11 +69,10 @@ int width = 1000;
 int height = 384;
 
 
-// TODO add title screen
 // TODO add control screen/ on screen controls
 // TODO death end state
 // TODO victory animations
-//TODO: finalise parry system
+// TODO finalise parry system
 
 
 void handleInput()
