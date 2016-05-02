@@ -23,6 +23,7 @@ SDL_Texture *playerTex; //pointer to the SDL_Texture
 SDL_Texture *floorTex;
 SDL_Texture *staminaTex;
 SDL_Texture *healthTex;
+SDL_Texture *menuTex;
 
 SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 //dafuq dis shit
@@ -51,6 +52,7 @@ void aiResponse(State success, float successRate);
 void aiAttack(State success, float successRate);
 
 bool done = false;
+bool menu = true;
 
 bool p1Up = false;
 bool p1Down = false;
@@ -192,6 +194,9 @@ void handleInput()
 						player2.stateTime = 0;
 						player2.stamina -= player2.state._stamina;
 					}
+								 if (menu == true) {
+									 menu = false;
+								 }
 					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
 						player2.state._name == "idle") {
 						player2.animReset();
@@ -1988,6 +1993,9 @@ void render()
 
 		SDL_Rect srcFloor;
 		SDL_Rect dstFloor;
+
+		SDL_Rect srcMenu;
+		SDL_Rect dstMenu;
 		
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
@@ -2098,6 +2106,16 @@ void render()
 		dstFloor.y = 0;
 		dstFloor.w = 1000;
 		dstFloor.h = 384;
+		///////////////////////////////////
+		srcMenu.x = 0;
+		srcMenu.y = 0;
+		srcMenu.w = 1000;
+		srcMenu.h = 384;
+
+		dstMenu.x = 0;
+		dstMenu.y = 0;
+		dstMenu.w = 1000;
+		dstMenu.h = 384;
 
 		SDL_RenderCopy(ren, floorTex, &srcFloor, &dstFloor);
 
@@ -2118,7 +2136,9 @@ void render()
 
 		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
 		SDL_RenderCopyEx(ren, playerTex, &srcPlayer2, &dstPlayer2, 0, 0, flip);
-
+		if (menu == true) {
+			SDL_RenderCopy(ren, menuTex, &srcMenu, &dstMenu);
+		}
 		//Update the screen
 		SDL_RenderPresent(ren);
 }
@@ -2187,6 +2207,26 @@ int main(int argc, char* args[])
 	}
 
 	floorTex = SDL_CreateTextureFromSurface(ren, surface);
+	SDL_FreeSurface(surface);
+	if (floorTex == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	imagePath = "assets/sprites/menu.png";
+	surface = IMG_Load(imagePath.c_str());
+	if (surface == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL IMG_Load Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	menuTex = SDL_CreateTextureFromSurface(ren, surface);
 	SDL_FreeSurface(surface);
 	if (floorTex == nullptr) {
 		SDL_DestroyRenderer(ren);
