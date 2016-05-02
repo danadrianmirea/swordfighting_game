@@ -24,30 +24,9 @@ SDL_Texture *healthTex;
 SDL_Texture *menuTex;
 
 SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
-//dafuq dis shit
+
 Player player1 = Player();
-Player player2 = Player();
-Ai dave = Ai();
-
-State stabHigh = State("stabHigh", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000);
-State stabMid = State("stabMid", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 2000, 7000);
-State stabLow = State("stabLow", 10, 20, 36, 40, 20, 0, 5, 0, 0, 0, 2400, 7000);
-
-State slashHigh = State("slashHigh", 10, 30, 50, 80, 40, 0, 10, 0, 0, 0, 400, 10000);
-State slashMid = State("slashMid", 10, 30, 50, 80, 40, 0, 10, 0, 0, 0, 800, 10000);
-State slashLow = State("slashLow", 10, 30, 50, 80, 40, 0, 10, 0, 0, 0, 1200, 10000);
-
-State blockHigh = State("blockHigh", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 2800, 1000);
-State blockMid = State("blockMid", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3200, 1000);
-State blockLow = State("blockLow", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3600, 1000);
-
-State parryHigh = State("parryHigh", 5, 10, 15, 45, 0, 10, 0, 100, 100, 0, 4000, 5000);
-State parryMid = State("parryMid", 5, 10, 15, 45, 0, 10, 0, 100, 100, 0, 4400, 5000);
-State parryLow = State("parryLow", 5, 10, 15, 45, 0, 10, 0, 100, 100, 0, 4800, 5000);
-State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7000);
-
-void aiResponse(State success, float successRate);
-void aiAttack(State success, float successRate);
+Ai player2 = Ai();
 
 bool done = false;
 bool menu = true;
@@ -119,15 +98,12 @@ void handleInput()
 
 						if (p1Up == true) {
 							player1.state = stabHigh;
-							aiResponse(blockHigh, player2.blockHighChance);
 						}
 						else if (p1Down == true) {
 							player1.state = stabLow;
-							aiResponse(blockLow, player2.blockLowChance);
 						}
 						else {
 							player1.state = stabMid;
-							aiResponse(blockMid, player2.blockMidChance);
 					}
 
 						player1.stateTime = 0;
@@ -257,37 +233,6 @@ void handleInput()
 	}
 }
 // end::handleInput[]
-
-void aiResponse(State successState, float successRate) {
-	random = rand() % 100 + 1;
-
-	if (random <= successRate)
-	{
-		player2.state = successState;
-		player2.successRateUpdate(successState);
-		aiStateHold = 40;
-	}
-	else
-	{
-		player2.state = idle;
-		player2.successRateUpdate(successState);
-	}
-}
-
-void aiAttack(State successState, float successRate) {
-	int random = rand() % 100 + 1;
-
-	if (random <= successRate)
-	{
-		player2.state = successState;
-		player2.successRateUpdate(successState);
-	}
-	else
-	{
-		player2.state = idle;
-		player2.successRateUpdate(successState);
-	}
-}
 
 void stateCompare()
 {
@@ -1902,7 +1847,6 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		staminaDelay = 0;
 		player1.stamina += player1.staminaGain;
 		player2.stamina += player2.staminaGain;
-		dave.stamina += dave.staminaGain;
 	}
 
 	if (player1.stamina >= 200) {
@@ -1910,9 +1854,6 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	}
 	if (player2.stamina >= 200) {
 		player2.stamina = 200;
-	}
-	if (dave.stamina >= 200) {
-		dave.stamina = 200;
 	}
 	if (player1.stamina < 0) {
 		player1.stamina = 0;
@@ -1922,20 +1863,13 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.stamina = 0;
 		player2.state = idle;
 	}
-	if (dave.stamina < 0) {
-		dave.stamina = 0;
-		dave.state = idle;
-	}
-
-	if (aiStateHold != 0)
-		aiStateHold--;
-	
-	dave.aiUpdate(player1);
 
 	player2.blockLowChance -= 5 * (simLength / 3);
 
 	player1.animUpdate();
 	player2.animUpdate();
+
+	player2.aiUpdate(player1);
 
 	stateCompare();
 
@@ -2283,7 +2217,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "P1STATE: " << player1.state._name << "       AISTAMINA: " << dave.stamina << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
+		cout << "P1STATE: " << player1.state._name << "       AISTAMINA: " << player2.stamina << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
