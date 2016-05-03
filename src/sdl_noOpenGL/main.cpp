@@ -1589,22 +1589,6 @@ void stateCompare()
 
 	if (player1.state._name == "parryHigh" &&
 		player2.state._name == "stabHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player2.stamina -= player1.state._staminaDrain;
-	}
-
-	if (player1.state._name == "parryMid" &&
-		player2.state._name == "stabLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.health -= player2.state._damage;
-	}
-
-	if (player1.state._name == "parryMid" &&
-		player2.state._name == "stabMid" &&
 		player2.stateTime >= player2.state._prep &&
 		player2.stateTime <= player2.state._actionStart &&
 		player1.stateTime == player1.state._actionEnd) {
@@ -1612,6 +1596,22 @@ void stateCompare()
 	}
 
 	if (player1.state._name == "parryMid" &&
+		player2.state._name == "stabLow" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.health -= player2.state._damage;
+	}
+
+	if (player1.state._name == "parryMid" &&
+		player2.state._name == "stabMid" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.stamina -= player1.state._staminaDrain;
+	}
+
+	if (player1.state._name == "parryMid" &&
 		player2.state._name == "stabHigh" &&
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
@@ -1621,9 +1621,9 @@ void stateCompare()
 
 	if (player1.state._name == "parryLow" &&
 		player2.state._name == "stabLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
+		player2.stateTime >= player2.state._prep &&
+		player2.stateTime <= player2.state._actionStart &&
+		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
 	}
 
@@ -1735,17 +1735,17 @@ void stateCompare()
 
 	if (player1.state._name == "parryHigh" &&
 		player2.state._name == "slashHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
+		player2.stateTime >= player2.state._prep &&
+		player2.stateTime <= player2.state._actionStart &&
+		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
 	}
 
 	if (player1.state._name == "parryLow" &&
 		player2.state._name == "slashLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
+		player2.stateTime >= player2.state._prep &&
+		player2.stateTime <= player2.state._actionStart &&
+		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
 	}
 
@@ -1783,9 +1783,9 @@ void stateCompare()
 
 	if (player1.state._name == "parryMid" &&
 		player2.state._name == "slashMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
+		player2.stateTime >= player2.state._prep &&
+		player2.stateTime <= player2.state._actionStart &&
+		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
 	}
 }

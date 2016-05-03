@@ -17,9 +17,9 @@ State stabHigh = State("stabHigh", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000)
 State stabMid = State("stabMid", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 2000, 7000);
 State stabLow = State("stabLow", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 2400, 7000);
 
-State slashHigh = State("slashHigh", 5, 45, 50, 80, 40, 0, 10, 0, 0, 0, 400, 10000);
-State slashMid = State("slashMid", 5, 45, 50, 80, 40, 0, 10, 0, 0, 0, 800, 10000);
-State slashLow = State("slashLow", 5, 45, 50, 80, 40, 0, 10, 0, 0, 0, 1200, 10000);
+State slashHigh = State("slashHigh", 0, 45, 50, 80, 40, 0, 10, 0, 0, 0, 400, 10000);
+State slashMid = State("slashMid", 0, 45, 50, 80, 40, 0, 10, 0, 0, 0, 800, 10000);
+State slashLow = State("slashLow", 0, 45, 50, 80, 40, 0, 10, 0, 0, 0, 1200, 10000);
 
 State blockHigh = State("blockHigh", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 2800, 1000);
 State blockMid = State("blockMid", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3200, 1000);
