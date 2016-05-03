@@ -60,6 +60,7 @@ void Ai::aiChoice(string playerState) {
 
 	madeAttempt = true;
 	randomChance = rand() % 100 + 1;
+	animReset();
 
 	if (playerState == "stabMid") {
 		if (randomChance <= blockMidChance)
@@ -87,7 +88,6 @@ void Ai::aiChoice(string playerState) {
 		else
 			state = blockLow;
 
-		stamina -= state._stamina;
 		successRateUpdate(blockHigh);
 	}
 

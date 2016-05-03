@@ -60,7 +60,7 @@ void Player::inState(string name)
 		state._name == "blockMid" ||
 		state._name == "blockLow") {
 		staminaTime++;
-		if (staminaTime > 20) {
+		if (staminaTime > 6) {
 			staminaTime = 0;
 			stamina -= state._staminaDrain;
 		}

@@ -64,6 +64,9 @@ void restart()
 	player2.animReset();
 	player1.state = idle;
 	player2.state = idle;
+	p1win = false;
+	p2win = false;
+
 }
 void handleInput()
 {
@@ -232,13 +235,9 @@ void handleInput()
 						player2.stamina -= player2.state._stamina;
 					}
 						break;
-					case SDLK_x: p1Up = true;
+					case SDLK_UP: p1Up = true;
 						break;
-					case SDLK_z: p1Down = true;
-						break;
-					case SDLK_UP: p2Up = true;
-						break;
-					case SDLK_DOWN: p2Down = true;
+					case SDLK_DOWN: p1Down = true;
 						break;
 					case SDLK_RETURN: restart();
 				}
@@ -252,13 +251,9 @@ void handleInput()
 					break;
 				case SDLK_r: player1.state = idle;
 					break;
-				case SDLK_x: p1Up = false;
+				case SDLK_UP: p1Up = false;
 					break;
-				case SDLK_z: p1Down = false;
-					break;
-				case SDLK_UP: p2Up = false;
-					break;
-				case SDLK_DOWN: p2Down = false;
+				case SDLK_DOWN: p1Down = false;
 					break;
 				}
 			break;
@@ -1884,9 +1879,9 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.blockHighChance = 100;
 	}
 
-	player2.blockLowChance	-= 5 * (simLength / 2);
-	player2.blockMidChance	-= 5 * (simLength / 2);
-	player2.blockHighChance -= 5 * (simLength / 2);
+	player2.blockLowChance	-= 5 * (simLength / 5);
+	player2.blockMidChance	-= 5 * (simLength / 5);
+	player2.blockHighChance -= 5 * (simLength / 5);
 
 	player1.animUpdate();
 	player2.animUpdate();
@@ -2319,7 +2314,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "BlockLow: " << player1.stateTime << "  BlockHigh: " << player2.stateTime << "  BlockMid: " << player2.state._name << std::endl;
+		cout << "BlockLow: " << player2.state._name << "  BlockHigh: " << player2.stamina << "  BlockMid: " << player2.state._name << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
