@@ -22,6 +22,9 @@ SDL_Texture *floorTex;
 SDL_Texture *staminaTex;
 SDL_Texture *healthTex;
 SDL_Texture *menuTex;
+SDL_Texture *controlsTex;
+SDL_Texture *p1Tex;
+SDL_Texture *p2Tex;
 
 SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
 
@@ -30,6 +33,9 @@ Ai player2 = Ai();
 
 bool done = false;
 bool menu = true;
+bool controls = false;
+bool p1win = false;
+bool p2win = false;
 
 bool p1Up = false;
 bool p1Down = false;
@@ -47,11 +53,18 @@ int aiStateHold = 0;
 int width = 1000;
 int height = 384;
 
-// TODO add control screen/ on screen controls
-// TODO death end state
-// TODO victory animations
 
-
+void restart()
+{
+	player1.health = 200;
+	player2.health = 200;
+	player1.stamina = 200;
+	player2.stamina = 200;
+	player1.animReset();
+	player2.animReset();
+	player1.state = idle;
+	player2.state = idle;
+}
 void handleInput()
 {
 	//Event-based input handling
@@ -180,6 +193,13 @@ void handleInput()
 					case SDLK_SPACE: 
 						if (menu == true) {
 							menu = false;
+							controls = false;
+						}
+						controls = false;
+						break;
+					case SDLK_c:
+						if (controls == false) {
+							controls = true;
 						}
 						break;
 					case SDLK_o: if (player2.stamina >= slashHigh._stamina &&
@@ -220,6 +240,7 @@ void handleInput()
 						break;
 					case SDLK_DOWN: p2Down = true;
 						break;
+					case SDLK_RETURN: restart();
 				}
 			break;
 		case SDL_KEYUP:
@@ -1870,7 +1891,12 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player1.animUpdate();
 	player2.animUpdate();
 
-	
+	if (player1.health <= 0) {
+		p2win = true;
+	}
+	if (player2.health <= 0) {
+		p1win = true;
+	}
 
 	stateCompare();
 
@@ -2083,8 +2109,18 @@ void render()
 
 		SDL_RenderCopy(ren, playerTex, &srcPlayer, &dstPlayer);
 		SDL_RenderCopyEx(ren, playerTex, &srcPlayer2, &dstPlayer2, 0, 0, flip);
+
+		if (p1win == true)
+		SDL_RenderCopy(ren, p1Tex, &srcMenu, &dstMenu);
+
+		if (p2win == true)
+		SDL_RenderCopy(ren, p2Tex, &srcMenu, &dstMenu);
+
 		if (menu == true) {
 			SDL_RenderCopy(ren, menuTex, &srcMenu, &dstMenu);
+		}
+		if (controls == true) {
+			SDL_RenderCopy(ren, controlsTex, &srcMenu, &dstMenu);
 		}
 		//Update the screen
 		SDL_RenderPresent(ren);
@@ -2214,6 +2250,64 @@ int main(int argc, char* args[])
 	}
 
 	healthTex = SDL_CreateTextureFromSurface(ren, surface);
+	SDL_FreeSurface(surface);
+	if (floorTex == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+	imagePath = "assets/sprites/p2win.png";
+	surface = IMG_Load(imagePath.c_str());
+	if (surface == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL IMG_Load Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	p2Tex = SDL_CreateTextureFromSurface(ren, surface);
+	SDL_FreeSurface(surface);
+	if (floorTex == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+	imagePath = "assets/sprites/p1win.png";
+	surface = IMG_Load(imagePath.c_str());
+	if (surface == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL IMG_Load Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	p1Tex = SDL_CreateTextureFromSurface(ren, surface);
+	SDL_FreeSurface(surface);
+	if (floorTex == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	imagePath = "assets/sprites/controls.png";
+	surface = IMG_Load(imagePath.c_str());
+	if (surface == nullptr) {
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		std::cout << "SDL IMG_Load Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return 1;
+	}
+
+	controlsTex = SDL_CreateTextureFromSurface(ren, surface);
 	SDL_FreeSurface(surface);
 	if (floorTex == nullptr) {
 		SDL_DestroyRenderer(ren);
