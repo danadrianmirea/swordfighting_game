@@ -63,34 +63,46 @@ void Ai::aiChoice(string playerState) {
 
 	if (playerState == "stabMid") {
 		if (randomChance <= blockMidChance)
-			state = blockMid;
+			if (randomChance % 2 == 0)
+				state = blockMid;
+			else
+				state = parryMid;
 		else if (rand() % 100 + 1 > 50)
 			state = blockHigh;
 		else
 			state = blockLow;
 
+		stamina -= state._stamina;
 		successRateUpdate(blockMid);
 	}
 
 	if (playerState == "stabHigh") {
 		if (randomChance <= blockHighChance)
-			state = blockHigh;
+			if (randomChance % 2 == 0)
+				state = blockHigh;
+			else
+				state = parryHigh;
 		else if (rand() % 100 + 1 > 50)
 			state = blockMid;
 		else
 			state = blockLow;
 
+		stamina -= state._stamina;
 		successRateUpdate(blockHigh);
 	}
 
 	if (playerState == "stabLow") {
 		if (randomChance <= blockLowChance)
-			state = blockLow;
+			if (randomChance % 2 == 0)
+				state = blockLow;
+			else
+				state = parryLow;
 		else if (rand() % 100 + 1 > 50)
 			state = blockHigh;
 		else
 			state = blockMid;
 
+		stamina -= state._stamina;
 		successRateUpdate(blockLow);
 	}
 
@@ -98,31 +110,48 @@ void Ai::aiChoice(string playerState) {
 		if (rand() % 100 + 1 > 50)
 			state = stabHigh;
 		else
-			state = stabLow;
+			state = slashLow;
+
+		stamina -= state._stamina;
 	}
 
 	if (playerState == "blockHigh") {
 		if (rand() % 100 + 1 > 50)
-			state = stabMid;
+			state = slashMid;
 		else
 			state = stabLow;
+
+		stamina -= state._stamina;
 	}
 
 	if (playerState == "blockLow") {
 		if (rand() % 100 + 1 > 50)
 			state = stabMid;
 		else
-			state = stabHigh;
+			state = slashHigh;
+
+		stamina -= state._stamina;
 	}
 
 	if (playerState == "idle") {
 		int rando = rand() % 100 + 1;
 		if (rando > 60)
-			state = stabMid;
-		else if (rando < 30) 
-			state = stabHigh;
+			if (rando % 2 == 0)
+				state = stabMid;
+			else
+				state = slashMid;
+		else if (rando < 30)
+			if (rando % 2 == 0)
+				state = stabHigh;
+			else
+				state = slashHigh;
 		else
-			state = stabLow;
+			if (rando % 2 == 0)
+				state = stabLow;
+			else
+				state = slashLow;
+
+		stamina -= state._stamina;
 		stateTime = 0;
 	}
 }
