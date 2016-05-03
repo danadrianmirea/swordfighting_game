@@ -126,7 +126,16 @@ void handleInput()
 					case SDLK_e: if (player1.stamina >= parryHigh._stamina &&
 						player1.state._name == "idle") {
 						player1.animReset();
-						player1.state = parryHigh;
+
+						if (p1Up == true)
+							player1.state = parryHigh;
+						else if (p1Down == true)
+							player1.state = parryLow;
+						else
+							player1.state = parryMid;
+
+
+						
 						player1.stateTime = 0;
 						player1.stamina -= player1.state._stamina;
 					}
@@ -726,59 +735,59 @@ void stateCompare()
 
 
 	//Parry
-	if (player1.state._name == "parryHigh" &&
-		player2.state._name == "parryLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 
-	if (player1.state._name == "parryHigh" &&
-		player2.state._name == "parryMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
+	//if (player1.state._name == "parryHigh" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 
-	if (player1.state._name == "parryLow" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 
-	if (player1.state._name == "parryLow" &&
-		player2.state._name == "parryMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
+	//if (player1.state._name == "parryLow" &&
+	//	player2.state._name == "parryMid" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 
-	if (player1.state._name == "parryMid" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "parryHigh" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 
-	if (player1.state._name == "parryMid" &&
-		player2.state._name == "parryLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
+	//if (player1.state._name == "parryMid" &&
+	//	player2.state._name == "parryLow" &&
+	//	player1.stateTime >= player1.state._prep &&
+	//	player1.stateTime <= player1.state._actionStart &&
+	//	player2.stateTime == player2.state._actionEnd) {
+	//	player1.state = idle; // would be knockback state is added
+	//	player2.state = idle;
+	//}
 
 
 
@@ -967,14 +976,12 @@ void stateCompare()
 			player1.health -= player2.state._damage;
 		}
 	}
-
 	if (player1.state._name == "stabHigh" &&
 		player2.state._name == "parryLow" &&
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.health -= player1.state._damage;
 	}
 
 	if (player1.state._name == "stabHigh" &&
@@ -982,8 +989,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.health -= player1.state._damage;
 	}
 
 	if (player1.state._name == "stabHigh" &&
@@ -991,8 +997,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.stamina -= player2.state._staminaDrain;
 	}
 
 	if (player1.state._name == "stabLow" &&
@@ -1000,8 +1005,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.health -= player1.state._damage;
 	}
 
 	if (player1.state._name == "stabLow" &&
@@ -1009,44 +1013,111 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "parryLow" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.stamina -= player2.state._staminaDrain;
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "parryLow" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "parryMid" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.stamina -= player2.state._staminaDrain;
+	}
+
+	if (player1.state._name == "slashMid" &&
+		player2.state._name == "parryHigh" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "parryLow" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "parryMid" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "slashHigh" &&
+		player2.state._name == "parryHigh" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player1.stamina -= player2.state._staminaDrain;
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "parryHigh" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.health -= player1.state._damage;
+	}
+
+	if (player1.state._name == "slashLow" &&
+		player2.state._name == "parryMid" &&
+		player1.stateTime >= player1.state._prep &&
+		player1.stateTime <= player1.state._actionStart &&
+		player2.stateTime == player2.state._actionEnd) {
+		player2.health -= player1.state._damage;
 	}
 	
-	if (player1.state._name == "stabLow" &&
+	if (player1.state._name == "slashLow" &&
 		player2.state._name == "parryLow" &&
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.stamina -= player2.state._staminaDrain;
 	}
 
-	if (player1.state._name == "stabMid" &&
+	if (player1.state._name == "slashMid" &&
 		player2.state._name == "parryLow" &&
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.health -= player1.state._damage;
 	}
 
-	if (player1.state._name == "stabMid" &&
+	if (player1.state._name == "slashMid" &&
 		player2.state._name == "parryMid" &&
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.stamina -= player2.state._staminaDrain;
 	}
 
-	if (player1.state._name == "stabMid" &&
+	if (player1.state._name == "slashMid" &&
 		player2.state._name == "parryHigh" &&
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.health -= player1.state._damage;
 	}
 
 	//SLASH MOVE COMBOS
@@ -1229,87 +1300,6 @@ void stateCompare()
 		if (player2.stateTime == player2.state._actionEnd) {
 			player1.health -= player2.state._damage;
 		}
-	}
-
-	if (player1.state._name == "slashHigh" &&
-		player2.state._name == "parryLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashHigh" &&
-		player2.state._name == "parryMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashHigh" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashLow" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashLow" &&
-		player2.state._name == "parryMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashLow" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashMid" &&
-		player2.state._name == "parryHigh" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashMid" &&
-		player2.state._name == "parryMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
-	}
-
-	if (player1.state._name == "slashMid" &&
-		player2.state._name == "parryLow" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
 	}
 
 
@@ -1586,8 +1576,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1595,8 +1584,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1604,8 +1592,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.stamina -= player1.state._staminaDrain;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1613,17 +1600,15 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
 		player2.state._name == "stabMid" &&
-		player1.stateTime >= player1.state._prep &&
-		player1.stateTime <= player1.state._actionStart &&
-		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.stateTime >= player2.state._prep &&
+		player2.stateTime <= player2.state._actionStart &&
+		player1.stateTime == player1.state._actionEnd) {
+		player2.stamina -= player1.state._staminaDrain;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1631,8 +1616,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1640,8 +1624,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.stamina -= player1.state._staminaDrain;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1649,8 +1632,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1658,8 +1640,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1667,8 +1648,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1676,8 +1656,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1685,8 +1664,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1694,8 +1672,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1712,8 +1689,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1721,8 +1697,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1730,8 +1705,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1739,8 +1713,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1748,8 +1721,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryHigh" &&
@@ -1766,8 +1738,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.stamina -= player1.state._staminaDrain;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1775,8 +1746,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.stamina -= player1.state._staminaDrain;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1784,8 +1754,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1793,8 +1762,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1802,8 +1770,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1811,8 +1778,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player1.health -= player2.state._damage;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1820,8 +1786,7 @@ void stateCompare()
 		player1.stateTime >= player1.state._prep &&
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
-		player1.state = idle; // would be knockback state is added
-		player2.state = idle;
+		player2.stamina -= player1.state._staminaDrain;
 	}
 }
 // tag::updateSimulation[]
@@ -1896,6 +1861,9 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 
 	stateCompare();
 
+	player1.inState("parryHigh");
+	player1.inState("parryMid");
+	player1.inState("parryLow");
 	player1.inState("blockHigh");
 	player1.inState("blockMid");
 	player1.inState("blockLow");
@@ -1906,6 +1874,10 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player1.inState("slashMid");
 	player1.inState("slashLow");
 
+
+	player2.inState("parryHigh");
+	player2.inState("parryMid");
+	player2.inState("parryLow");
 	player2.inState("blockHigh");
 	player2.inState("blockMid");
 	player2.inState("blockLow");
@@ -2240,7 +2212,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "BlockLow: " << player2.state._name << "  BlockHigh: " << player2.blockHighChance << "  BlockMid: " << player2.blockMidChance << std::endl;
+		cout << "BlockLow: " << player1.stateTime << "  BlockHigh: " << player2.stateTime << "  BlockMid: " << player2.state._name << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
