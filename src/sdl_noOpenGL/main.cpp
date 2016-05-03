@@ -998,6 +998,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.stamina -= player2.state._staminaDrain;
+		player1.state = idle;
 	}
 
 	if (player1.state._name == "stabLow" &&
@@ -1022,6 +1023,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.stamina -= player2.state._staminaDrain;
+		player1.state = idle;
 	}
 
 	if (player1.state._name == "slashMid" &&
@@ -1038,6 +1040,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.stamina -= player2.state._staminaDrain;
+		player1.state = idle;
 	}
 
 	if (player1.state._name == "slashMid" &&
@@ -1070,6 +1073,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.stamina -= player2.state._staminaDrain;
+		player1.state = idle;
 	}
 
 	if (player1.state._name == "slashLow" &&
@@ -1094,6 +1098,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.stamina -= player2.state._staminaDrain;
+		player1.state = idle;
 	}
 
 	if (player1.state._name == "slashMid" &&
@@ -1110,6 +1115,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.stamina -= player2.state._staminaDrain;
+		player1.state = idle;
 	}
 
 	if (player1.state._name == "slashMid" &&
@@ -1593,6 +1599,7 @@ void stateCompare()
 		player2.stateTime <= player2.state._actionStart &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
+		player2.state = idle;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1609,6 +1616,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
+		player2.state = idle;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1625,6 +1633,7 @@ void stateCompare()
 		player2.stateTime <= player2.state._actionStart &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
+		player2.state = idle;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1690,6 +1699,7 @@ void stateCompare()
 		player1.stateTime <= player1.state._actionStart &&
 		player2.stateTime == player2.state._actionEnd) {
 		player1.health -= player2.state._damage;
+		player2.state = idle;
 	}
 
 	if (player1.state._name == "parryMid" &&
@@ -1739,6 +1749,7 @@ void stateCompare()
 		player2.stateTime <= player2.state._actionStart &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
+		player2.state = idle;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1747,6 +1758,7 @@ void stateCompare()
 		player2.stateTime <= player2.state._actionStart &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
+		player2.state = idle;
 	}
 
 	if (player1.state._name == "parryLow" &&
@@ -1787,6 +1799,7 @@ void stateCompare()
 		player2.stateTime <= player2.state._actionStart &&
 		player1.stateTime == player1.state._actionEnd) {
 		player2.stamina -= player1.state._staminaDrain;
+		player2.state = idle;
 	}
 }
 // tag::updateSimulation[]
