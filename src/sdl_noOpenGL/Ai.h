@@ -72,7 +72,7 @@ void Ai::aiChoice(string playerState) {
 		else
 			state = blockLow;
 
-		stamina -= state._stamina;
+		
 		successRateUpdate(blockMid);
 	}
 
@@ -102,7 +102,7 @@ void Ai::aiChoice(string playerState) {
 		else
 			state = blockMid;
 
-		stamina -= state._stamina;
+		
 		successRateUpdate(blockLow);
 	}
 
