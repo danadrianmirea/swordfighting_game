@@ -50,7 +50,7 @@ int height = 384;
 // TODO add control screen/ on screen controls
 // TODO death end state
 // TODO victory animations
-// TODO finalise parry system
+
 
 void handleInput()
 {
@@ -1798,7 +1798,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player2.aiUpdate(player1);
 
 	if (floorTimer > 3) {
-		floorCount += 384;
+		floorCount += 375;
 		if (floorCount >= 3000)
 		{
 			floorCount = 0;
@@ -2034,7 +2034,7 @@ void render()
 		srcFloor.x = 0;
 		srcFloor.y = floorCount;
 		srcFloor.w = 1000;
-		srcFloor.h = 384;
+		srcFloor.h = 375;
 
 		dstFloor.x = 0;
 		dstFloor.y = 0;
@@ -2130,7 +2130,7 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	imagePath = "assets/sprites/background black and white to colour v5.png";
+	imagePath = "assets/sprites/background.png";
 	surface = IMG_Load(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_DestroyRenderer(ren);
