@@ -47,12 +47,10 @@ int aiStateHold = 0;
 int width = 1000;
 int height = 384;
 
-
 // TODO add control screen/ on screen controls
 // TODO death end state
 // TODO victory animations
 // TODO finalise parry system
-
 
 void handleInput()
 {
@@ -1832,6 +1830,8 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	floorTimer++;
 	staminaDelay++;
 
+	player2.aiUpdate(player1);
+
 	if (floorTimer > 3) {
 		floorCount += 384;
 		if (floorCount >= 3000)
@@ -1861,12 +1861,38 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 		player2.state = idle;
 	}
 
-	player2.blockLowChance -= 5 * (simLength / 3);
+	if (player2.blockHighChance < 20) {
+		player2.blockHighChance = 20;
+	}
+
+	if (player2.blockMidChance < 20) {
+		player2.blockMidChance = 20;
+	}
+
+	if (player2.blockLowChance < 20) {
+		player2.blockLowChance = 20;
+	}
+
+	if (player2.blockLowChance >= 100) {
+		player2.blockLowChance = 100;
+	}
+
+	if (player2.blockMidChance >= 100) {
+		player2.blockMidChance = 100;
+	}
+
+	if (player2.blockHighChance >= 100) {
+		player2.blockHighChance = 100;
+	}
+
+	player2.blockLowChance	-= 5 * (simLength / 2);
+	player2.blockMidChance	-= 5 * (simLength / 2);
+	player2.blockHighChance -= 5 * (simLength / 2);
 
 	player1.animUpdate();
 	player2.animUpdate();
 
-	player2.aiUpdate(player1);
+	
 
 	stateCompare();
 
@@ -2214,7 +2240,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "P1STATE: " << player1.state._name << "       AISTAMINA: " << player2.stamina << "       BLOCKLOW: " << player2.blockLowChance << std::endl;
+		cout << "BlockLow: " << player2.state._name << "  BlockHigh: " << player2.blockHighChance << "  BlockMid: " << player2.blockMidChance << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 
