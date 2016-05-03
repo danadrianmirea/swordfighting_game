@@ -1827,7 +1827,7 @@ void stateCompare()
 // tag::updateSimulation[]
 void updateSimulation(double simLength = 0.02) //update simulation with an amount of time to simulate for (in seconds)
 {
-	floorTimer++;
+ 	floorTimer++;
 	staminaDelay++;
 
 	player2.aiUpdate(player1);

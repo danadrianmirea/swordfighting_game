@@ -36,7 +36,7 @@ void Ai::aiUpdate(Player human)
 	if (human.state._name != "idle")
 		dCount++;
 
-	if (human.state._name == "idle" && attackCount > 1 && state._name == "idle") {
+	if (human.state._name == "idle" && attackCount > 125 && state._name == "idle") {
  		attackCount = 0;
 		aiChoice(human.state._name);
 	}
@@ -119,10 +119,10 @@ void Ai::aiChoice(string playerState) {
 		int rando = rand() % 100 + 1;
 		if (rando > 60)
 			state = stabMid;
-		else if (rando < 30)
+		else if (rando < 30) 
 			state = stabHigh;
 		else
 			state = stabLow;
+		stateTime = 0;
 	}
-
 }
