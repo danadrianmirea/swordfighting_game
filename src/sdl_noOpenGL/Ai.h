@@ -135,22 +135,29 @@ void Ai::aiChoice(string playerState) {
 
 	if (playerState == "idle") {
 		int rando = rand() % 100 + 1;
-		if (rando > 60)
-			if (rando % 2 == 0)
-				state = stabMid;
-			else
+		if (rando > 80)
+			if (rando % 2 == 0
+				&& stamina > slashHigh._stamina)
 				state = slashMid;
-		else if (rando < 30)
-			if (rando % 2 == 0)
-				state = stabHigh;
 			else
+				state = stabMid;
+		else if (rando < 20)
+			if (rando % 2 == 0
+				&& stamina > slashHigh._stamina)
 				state = slashHigh;
-		else
-			if (rando % 2 == 0)
-				state = stabLow;
 			else
+				state = stabHigh;
+		else if (rando >= 20
+			&& rando <= 40)
+			if (rando % 2 == 0
+				&& stamina > slashHigh._stamina)
 				state = slashLow;
+			else
+				state = stabLow;
+		else
+			state = idle;
 
+		cout << "chose a move" << state._name << endl;
 		stamina -= state._stamina;
 		stateTime = 0;
 	}

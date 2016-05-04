@@ -1824,7 +1824,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
  	floorTimer++;
 	staminaDelay++;
 
-	player2.aiUpdate(player1);
+	
 
 	if (floorTimer > 3) {
 		floorCount += 375;
@@ -1882,7 +1882,7 @@ void updateSimulation(double simLength = 0.02) //update simulation with an amoun
 	player2.blockLowChance	-= 5 * (simLength / 5);
 	player2.blockMidChance	-= 5 * (simLength / 5);
 	player2.blockHighChance -= 5 * (simLength / 5);
-
+	player2.aiUpdate(player1);
 	player1.animUpdate();
 	player2.animUpdate();
 
@@ -1967,8 +1967,8 @@ void render()
 		
 		srcPlayer.x = player1.xSpriteIndex;
 		srcPlayer.y = player1.ySpriteIndex;
-		srcPlayer.w = 500; // player1.state._sprWidth;
-		srcPlayer.h = 400;
+		srcPlayer.w = 400; // player1.state._sprWidth;
+		srcPlayer.h = 320;
 
 		dstPlayer.x = 325;
 		dstPlayer.y = 150;
@@ -1977,8 +1977,8 @@ void render()
 
 		srcPlayer2.x = player2.xSpriteIndex;
 		srcPlayer2.y = player2.ySpriteIndex;
-		srcPlayer2.w = 500; // player2.state._sprWidth;
-		srcPlayer2.h = 400;
+		srcPlayer2.w = 400; // player2.state._sprWidth;
+		srcPlayer2.h = 320;
 
 		dstPlayer2.x = 500;
 		dstPlayer2.y = 150;
@@ -2314,7 +2314,7 @@ int main(int argc, char* args[])
 
 	while (!done) //loop until done flag is set)
 	{
-		cout << "BlockLow: " << player2.state._name << "  BlockHigh: " << player2.stamina << "  BlockMid: " << player2.state._name << std::endl;
+		///cout << "BlockLow: " << player2.state._name << "  BlockHigh: " << player2.stamina << "  BlockMid: " << player2.state._name << std::endl;
 
 		handleInput(); // this should ONLY SET VARIABLES
 

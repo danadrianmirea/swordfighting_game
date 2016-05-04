@@ -13,22 +13,22 @@
 
 using namespace std;
 
-State stabHigh = State("stabHigh", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 7000);
-State stabMid = State("stabMid", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 2000, 7000);
-State stabLow = State("stabLow", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 2400, 7000);
+State stabHigh = State("stabHigh", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 1280, 5600);
+State stabMid = State("stabMid", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 1600, 5600);
+State stabLow = State("stabLow", 2, 30, 36, 40, 20, 0, 5, 0, 0, 0, 1920, 5600);
 
-State slashHigh = State("slashHigh", 0, 45, 50, 80, 40, 0, 10, 0, 0, 0, 400, 10000);
-State slashMid = State("slashMid", 0, 45, 50, 80, 40, 0, 10, 0, 0, 0, 800, 10000);
-State slashLow = State("slashLow", 0, 45, 50, 80, 40, 0, 10, 0, 0, 0, 1200, 10000);
+State slashHigh = State("slashHigh", 0, 45, 50, 60, 40, 0, 0, 0, 0, 0, 320, 8000);
+State slashMid = State("slashMid", 0, 45, 50, 60, 40, 0, 0, 0, 0, 0, 640, 8000);
+State slashLow = State("slashLow", 0, 45, 50, 60, 40, 0, 0, 0, 0, 0, 960, 8000);
 
-State blockHigh = State("blockHigh", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 2800, 1000);
-State blockMid = State("blockMid", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3200, 1000);
-State blockLow = State("blockLow", 2, 0, 4, 0, 0, 0, 2, 100, 25, 1000, 3600, 1000);
+State blockHigh = State("blockHigh", 2, 0, 4, 0, 0, 0, 2, 100, 25, 800, 2240, 800);
+State blockMid = State("blockMid", 2, 0, 4, 0, 0, 0, 2, 100, 25, 800, 2560, 800);
+State blockLow = State("blockLow", 2, 0, 4, 0, 0, 0, 2, 100, 25, 800, 2880, 800);
 
-State parryHigh = State("parryHigh", 5, 6, 8, 45, 0, 10, 50, 100, 100, 0, 4000, 5000);
-State parryMid = State("parryMid", 5, 6, 8, 45, 0, 10, 50, 100, 100, 0, 4400, 5000);
-State parryLow = State("parryLow", 5, 6, 8, 45, 0, 10, 50, 100, 100, 0, 4800, 5000);
-State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7000);
+State parryHigh = State("parryHigh", 5, 6, 8, 45, 0, 10, 50, 100, 100, 0, 3200, 4000);
+State parryMid = State("parryMid", 5, 6, 8, 45, 0, 10, 50, 100, 100, 0, 3520, 4000);
+State parryLow = State("parryLow", 5, 6, 8, 45, 0, 10, 50, 100, 100, 0, 3840, 4000);
+State idle = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5600);
 
 class Player
 {
@@ -42,11 +42,11 @@ public:
 	int staminaTime = 0;
 	int animTimer = 0;
 
-	float blockHighChance = 20;
-	float blockMidChance = 20;
-	float blockLowChance = 20;
+	float blockHighChance = 50;
+	float blockMidChance = 50;
+	float blockLowChance = 50;
 
-	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7000);
+	State state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5600);
 
 	void inState(string name);
 	void successRateUpdate(State name);
@@ -60,7 +60,7 @@ void Player::inState(string name)
 		state._name == "blockMid" ||
 		state._name == "blockLow") {
 		staminaTime++;
-		if (staminaTime > 6) {
+		if (staminaTime > 16) {
 			staminaTime = 0;
 			stamina -= state._staminaDrain;
 		}
@@ -73,7 +73,7 @@ void Player::inState(string name)
 		if (stateTime >= state._actionStart) {
 		}
 		if (stateTime > state._actionEnd) {
-			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7000);
+			state = State("idle", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5600);
 		}
 	}
 }
@@ -82,17 +82,17 @@ void Player::successRateUpdate(State attack)
 {
 	if (attack._name == "blockHigh")
 	{
-		blockHighChance += 20;
+		blockHighChance += 15;
 	}
 
 	if (attack._name == "blockMid")
 	{
-		blockMidChance	+= 20;
+		blockMidChance	+= 15;
 	}
 
 	if (attack._name == "blockLow")
 	{
-		blockLowChance	+= 20;
+		blockLowChance	+= 15;
 	}
 }
 
@@ -100,7 +100,7 @@ void Player::animUpdate()
 {
 	animTimer++;
 	if (animTimer > 2) {
-		xSpriteIndex += 500;
+		xSpriteIndex += 400;
 		ySpriteIndex = state._sprLocation;
 		if (xSpriteIndex >= state._sprLength)
 			xSpriteIndex = state._sprWidth;
